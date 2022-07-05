@@ -1,9 +1,10 @@
-package com.metoer.clocktracker
+package com.metoer.clocktracker.ui.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.metoer.clocktracker.R
 
-class MainActivity : AppCompatActivity() {
+class ClockActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
