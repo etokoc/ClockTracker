@@ -24,6 +24,8 @@
         android:layout_height="wrap_content"
         app:itemIconTint="@drawable/bottom_bar_selector"
         app:elevation="0dp"
+        android:paddingStart="60dp"
+        android:paddingEnd="60dp"
         app:itemRippleColor="@color/white"
         app:labelVisibilityMode="unlabeled"
         app:layout_constraintEnd_toEndOf="parent"

@@ -11,7 +11,7 @@ import com.metoer.clockacker.data.db.ClockDao
     version = 1
 )
 abstract class ClockDatabase : RoomDatabase() {
-    abstract fun getClockDao(): ClockDao
+   // abstract fun getClockDao(): ClockDao
 
     companion object {
         var database: ClockDatabase? = null

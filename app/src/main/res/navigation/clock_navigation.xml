@@ -9,14 +9,7 @@
         android:id="@+id/alarmFragment"
         android:name="com.metoer.clocktracker.ui.view.fragment.AlarmFragment"
         android:label="fragment_alarm"
-        tools:layout="@layout/fragment_alarm" >
-        <action
-            android:id="@+id/action_alarmFragment_to_countDownFragment"
-            app:destination="@id/countDownFragment" />
-        <action
-            android:id="@+id/action_alarmFragment_to_counterFragment"
-            app:destination="@id/counterFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_alarm" />
     <fragment
         android:id="@+id/counterFragment"
         android:name="com.metoer.clocktracker.ui.view.fragment.CounterFragment"
