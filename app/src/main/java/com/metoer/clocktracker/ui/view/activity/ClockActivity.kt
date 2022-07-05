@@ -1,4 +1,4 @@
-package com.metoer.clocktracker.ui.view
+package com.metoer.clocktracker.ui.view.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
