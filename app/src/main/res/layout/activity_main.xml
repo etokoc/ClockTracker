@@ -22,6 +22,7 @@
         android:id="@+id/clockMenuBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:itemIconTint="@drawable/bottom_bar_selector"
         app:elevation="0dp"
         app:itemRippleColor="@color/white"
         app:labelVisibilityMode="unlabeled"
