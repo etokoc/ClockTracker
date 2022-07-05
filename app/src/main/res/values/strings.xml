@@ -2,4 +2,7 @@
     <string name="app_name">ClockTracker</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="alarm">Alarm</string>
+    <string name="chronometer">Kronometre</string>
+    <string name="countdown">Geri Sayaç</string>
 </resources>

@@ -3,8 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/ErtugrulKoc/AndroidStudioProjects/ClockTracker/app/src/main/res/layout/fragment_alarm.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/ErtugrulKoc/AndroidStudioProjects/ClockTracker/app/src/main/res/layout/fragment_count_down.xml" value="0.17831813576494426" />
+        <entry key="..\:/Apps/ClockTracker/app/src/main/res/drawable/ic_hourglass.xml" value="0.2735" />
+        <entry key="..\:/Apps/ClockTracker/app/src/main/res/layout/activity_main.xml" value="0.19293478260869565" />
+        <entry key="..\:/Apps/ClockTracker/app/src/main/res/layout/fragment_alarm.xml" value="0.19293478260869565" />
+        <entry key="..\:/Apps/ClockTracker/app/src/main/res/layout/fragment_count_down.xml" value="0.19293478260869565" />
+        <entry key="..\:/Apps/ClockTracker/app/src/main/res/layout/fragment_counter.xml" value="0.19293478260869565" />
+        <entry key="..\:/Apps/ClockTracker/app/src/main/res/menu/clock_menu.xml" value="0.2677083333333333" />
       </map>
     </option>
   </component>
