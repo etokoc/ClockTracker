@@ -23,20 +23,7 @@ class AlarmSettingFragment : Fragment() {
         _binding=FragmentAlarmSettingBinding.inflate(inflater,container,false)
 
         binding.apply {
-            button.setOnClickListener {
-                val currentTime = Calendar.getInstance()
-                val startHour = currentTime.get(Calendar.HOUR_OF_DAY)
-                val startMinute = currentTime.get(Calendar.MINUTE)
-
-                TimePickerDialog(
-                    requireContext(), { view, horOfDay, minute ->
-
-                    },
-                    startHour,
-                    startMinute,
-                    true
-                ).show()
-            }
+            pickertime.setIs24HourView(true)
         }
 
         return binding.root
