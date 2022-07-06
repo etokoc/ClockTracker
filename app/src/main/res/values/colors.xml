@@ -10,4 +10,5 @@
     <color name="appBlue">#F33A87DA</color>
     <color name="clockHeaderColor">#7C0079FF</color>
     <color name="appGray">#A8A8A8</color>
+    <color name="textHeavyGray">#8E8E8E</color>
 </resources>

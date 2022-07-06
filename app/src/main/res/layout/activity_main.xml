@@ -20,16 +20,44 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/clockMenuBar"
-        android:layout_width="300dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:itemIconTint="@drawable/bottom_bar_selector"
-        app:elevation="0dp"
         android:paddingStart="30dp"
         android:paddingEnd="30dp"
+        app:elevation="0dp"
+        app:itemIconTint="@drawable/bottom_bar_selector"
         app:itemRippleColor="@color/white"
         app:labelVisibilityMode="unlabeled"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ib_Success"
+        app:layout_constraintStart_toEndOf="@+id/ibExit"
         app:layout_constraintTop_toTopOf="parent"
         app:menu="@menu/clock_menu" />
+
+    <ImageButton
+        android:id="@+id/ibExit"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="3dp"
+        android:adjustViewBounds="true"
+        android:backgroundTint="@android:color/transparent"
+        android:padding="12dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_close" />
+
+    <ImageButton
+        android:id="@+id/ib_Success"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="16dp"
+        android:adjustViewBounds="true"
+        android:backgroundTint="@android:color/transparent"
+        android:padding="5dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_tick" />
 </androidx.constraintlayout.widget.ConstraintLayout>

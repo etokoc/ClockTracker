@@ -5,4 +5,5 @@
     <string name="alarm">Alarm</string>
     <string name="chronometer">Kronometre</string>
     <string name="countdown">Geri Sayaç</string>
+    <string name="ring_sound">Zil sesi</string>
 </resources>
