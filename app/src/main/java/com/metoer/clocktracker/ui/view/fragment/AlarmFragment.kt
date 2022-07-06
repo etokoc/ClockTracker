@@ -1,17 +1,18 @@
 package com.metoer.clocktracker.ui.view.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
 import com.metoer.clocktracker.R
+import com.metoer.clocktracker.base.BaseFragment
 import com.metoer.clocktracker.databinding.FragmentAlarmBinding
 import com.metoer.clocktracker.other.MyAnimations
+import com.metoer.clocktracker.ui.view.activity.ClockActivity
 import kotlinx.android.synthetic.main.fragment_alarm.*
 
-class AlarmFragment : Fragment() {
+class AlarmFragment : BaseFragment() {
 
     private var clicked = false
 
@@ -19,7 +20,7 @@ class AlarmFragment : Fragment() {
     private val binding
         get() = _binding!!
 
-    val ani=MyAnimations()
+    val ani = MyAnimations()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,6 +41,11 @@ class AlarmFragment : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        visibleBar()
+    }
+
     private fun onAddButtonClicked() {
         setAnimation(clicked)
         clicked = !clicked
@@ -47,10 +53,25 @@ class AlarmFragment : Fragment() {
 
     private fun setAnimation(clicked: Boolean) {
         if (!clicked) {
-            fabTimePickerDialog.startAnimation(ani.animationSet(requireContext(),R.anim.rotate_open))
+            fabTimePickerDialog.startAnimation(
+                ani.animationSet(
+                    requireContext(),
+                    R.anim.rotate_open
+                )
+            )
         } else {
-            fabTimePickerDialog.startAnimation(ani.animationSet(requireContext(),R.anim.rotate_close))
+            fabTimePickerDialog.startAnimation(
+                ani.animationSet(
+                    requireContext(),
+                    R.anim.rotate_close
+                )
+            )
         }
     }
+
+    override fun visibleBar() {
+        (requireActivity() as ClockActivity).visibleBar()
+    }
+
 
 }
