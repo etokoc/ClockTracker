@@ -11,14 +11,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 class ClockActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        hideSystemUI()
         setContentView(R.layout.activity_main)
         val navController = findNavController(R.id.home_fragment)
         clockMenuBar.setupWithNavController(navController)
     }
 
-    // This snippet hides the system bars.
-    private fun hideSystemUI() {
-
-    }
 }

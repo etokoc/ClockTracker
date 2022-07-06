@@ -9,7 +9,15 @@
         android:id="@+id/alarmFragment"
         android:name="com.metoer.clocktracker.ui.view.fragment.AlarmFragment"
         android:label="fragment_alarm"
-        tools:layout="@layout/fragment_alarm" />
+        tools:layout="@layout/fragment_alarm" >
+        <action
+            android:id="@+id/action_alarmFragment_to_alarmSettingFragment"
+            app:destination="@id/alarmSettingFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+    </fragment>
     <fragment
         android:id="@+id/counterFragment"
         android:name="com.metoer.clocktracker.ui.view.fragment.CounterFragment"
@@ -20,4 +28,9 @@
         android:name="com.metoer.clocktracker.ui.view.fragment.CountDownFragment"
         android:label="fragment_count_down"
         tools:layout="@layout/fragment_count_down" />
+    <fragment
+        android:id="@+id/alarmSettingFragment"
+        android:name="com.metoer.clocktracker.ui.view.fragment.AlarmSettingFragment"
+        android:label="fragment_alarm_setting"
+        tools:layout="@layout/fragment_alarm_setting" />
 </navigation>
