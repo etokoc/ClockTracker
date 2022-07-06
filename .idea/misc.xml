@@ -3,12 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Apps/ClockTracker/app/src/main/res/drawable/ic_add.xml" value="0.2735" />
-        <entry key="..\:/Apps/ClockTracker/app/src/main/res/layout/activity_main.xml" value="0.13069908814589665" />
-        <entry key="..\:/Apps/ClockTracker/app/src/main/res/layout/fragment_alarm.xml" value="0.26856884057971014" />
-        <entry key="..\:/Apps/ClockTracker/app/src/main/res/layout/fragment_alarm_setting.xml" value="0.26856884057971014" />
         <entry key="..\:/Users/ErtugrulKoc/AndroidStudioProjects/ClockTracker/app/src/main/res/drawable/bottom_bar_selector.xml" value="0.124" />
+        <entry key="..\:/Users/ErtugrulKoc/AndroidStudioProjects/ClockTracker/app/src/main/res/drawable/ic_add.xml" value="0.2685" />
+        <entry key="..\:/Users/ErtugrulKoc/AndroidStudioProjects/ClockTracker/app/src/main/res/drawable/ic_alarm.xml" value="0.2685" />
+        <entry key="..\:/Users/ErtugrulKoc/AndroidStudioProjects/ClockTracker/app/src/main/res/drawable/ic_hourglass.xml" value="0.2685" />
+        <entry key="..\:/Users/ErtugrulKoc/AndroidStudioProjects/ClockTracker/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Users/ErtugrulKoc/AndroidStudioProjects/ClockTracker/app/src/main/res/layout/fragment_alarm.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/ErtugrulKoc/AndroidStudioProjects/ClockTracker/app/src/main/res/layout/fragment_alarm_setting.xml" value="0.25" />
         <entry key="..\:/Users/ErtugrulKoc/AndroidStudioProjects/ClockTracker/app/src/main/res/layout/fragment_count_down.xml" value="0.17831813576494426" />
       </map>
     </option>
