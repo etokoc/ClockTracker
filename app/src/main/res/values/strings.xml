@@ -6,4 +6,8 @@
     <string name="chronometer">Kronometre</string>
     <string name="countdown">Geri Sayaç</string>
     <string name="ring_sound">Zil sesi</string>
+    <string name="default_ring_sound">Varsayılan zil sesi</string>
+    <string name="again">Tekrar</string>
+    <string name="just_one">Bir Kez</string>
+    <string name="tag">Etiket</string>
 </resources>
