@@ -42,11 +42,19 @@ class AlarmSettingFragment : BaseFragment() {
             }
             //Tekrar Satırı
             linear_2.setOnClickListener {
-                showDialog()
+                showDialog(
+                    R.style.BottomDialog,
+                    R.layout.again_bottom_dialog,
+                    R.style.BottomDialog_Animation
+                )
             }
             //Etiket Satırı
             linear_3.setOnClickListener {
-                requireContext().showToastShort("Satır-3")
+                showDialog(
+                    R.style.BottomDialog,
+                    R.layout.tag_bottom_dialog,
+                    R.style.BottomDialog_Animation
+                )
             }
         }
     }
@@ -56,12 +64,12 @@ class AlarmSettingFragment : BaseFragment() {
         (requireActivity() as ClockActivity).hideBar()
     }
 
-    fun showDialog() {
+    fun showDialog(style: Int, item: Int, animation: Int) {
         DialogCreater(
             requireContext(),
-            R.style.BottomDialog,
-            R.layout.again_bottom_dialog,
-            R.style.BottomDialog_Animation
+            style,
+            item,
+            animation
         ).showDialog()
     }
 
