@@ -27,7 +27,6 @@ class AlarmFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAlarmBinding.inflate(inflater, container, false)
-
         binding.apply {
 
             fabTimePickerDialog.setOnClickListener {
@@ -41,9 +40,18 @@ class AlarmFragment : BaseFragment() {
         return binding.root
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean("isClicked", clicked)
+    }
+
     override fun onResume() {
         super.onResume()
         visibleBar()
+        if (clicked) {
+            setAnimation(true)
+            clicked = false
+        }
     }
 
     private fun onAddButtonClicked() {
