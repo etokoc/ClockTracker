@@ -9,65 +9,78 @@
         android:layout_height="wrap_content"
         android:background="@drawable/dialog_background"
         android:orientation="vertical"
+        android:paddingTop="24dp"
+        android:paddingBottom="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/editMenuItem"
+        <RadioGroup
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:drawableStart="@drawable/ic_alarm"
-            android:drawablePadding="16dp"
-            android:focusable="true"
-            android:gravity="center_vertical"
-            android:padding="16dp"
-            android:text="@string/countdown"
-            android:textColor="#666666"
-            android:textSize="14sp" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:checkedButton="@id/rbOnceDay">
 
-        <TextView
-            android:id="@+id/editMenuItem2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:drawableStart="@drawable/ic_alarm"
-            android:drawablePadding="16dp"
-            android:focusable="true"
-            android:gravity="center_vertical"
-            android:padding="16dp"
-            android:text="@string/countdown"
-            android:textColor="#666666"
-            android:textSize="14sp" />
+            <RadioButton
+                android:id="@+id/rbOnceDay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="8dp"
+                android:textStyle="bold"
+                android:text="@string/bir_kez"
+                android:textColor="@color/black"
+                android:padding="24dp"
+                android:button="@null"
+                android:backgroundTint="@drawable/rb_selection_selector"
+                android:textSize="16sp"
+                />
 
-        <TextView
-            android:id="@+id/editMenuItem3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:drawableStart="@drawable/ic_alarm"
-            android:drawablePadding="16dp"
-            android:focusable="true"
-            android:gravity="center_vertical"
-            android:padding="16dp"
-            android:text="@string/countdown"
-            android:textColor="#666666"
-            android:textSize="14sp" />
+            <RadioButton
+                android:id="@+id/rbEveryDay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="24dp"
+                android:textStyle="bold"
+                android:button="@null"
+                android:drawablePadding="8dp"
+                android:backgroundTint="@drawable/rb_selection_selector"
+                android:text="@string/all_day"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/editMenuItem4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:drawableStart="@drawable/ic_alarm"
-            android:drawablePadding="16dp"
-            android:focusable="true"
-            android:gravity="center_vertical"
-            android:padding="16dp"
-            android:text="@string/countdown"
-            android:textColor="#666666"
-            android:textSize="14sp" />
+            <RadioButton
+                android:id="@+id/rbWeekDay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="24dp"
+                android:button="@null"
+                android:backgroundTint="@drawable/rb_selection_selector"
+                android:textStyle="bold"
+                android:text="@string/pazartesi_cuma"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/rbSpecialDay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:drawablePadding="8dp"
+                android:padding="24dp"
+                android:textStyle="bold"
+                android:button="@null"
+                android:gravity="center_vertical"
+                android:backgroundTint="@drawable/rb_selection_selector"
+                android:text="@string/special"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+        </RadioGroup>
 
 
     </LinearLayout>

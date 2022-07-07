@@ -10,4 +10,10 @@
     <string name="again">Tekrar</string>
     <string name="just_one">Bir Kez</string>
     <string name="tag">Etiket</string>
+    <string name="bir_kez">Bir kez</string>
+    <string name="all_day">Her gün</string>
+    <string name="pazartesi_cuma">Pazartesi - Cuma</string>
+    <string name="special">Özel</string>
+    <string name="confirm">Onayla</string>
+    <string name="cancel">İptal</string>
 </resources>

@@ -10,5 +10,9 @@
     <color name="appBlue">#F33A87DA</color>
     <color name="clockHeaderColor">#7C0079FF</color>
     <color name="appGray">#A8A8A8</color>
+    <color name="lightGray">#E1E1E1</color>
     <color name="textHeavyGray">#8E8E8E</color>
+    <color name="transparent">#00000000</color>
+    <color name="textChecked">#7C3A87DA</color>
+    <color name="btn_confirm_blue">#F34EA2FD</color>
 </resources>
