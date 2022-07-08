@@ -22,6 +22,7 @@
 
     <EditText
         android:id="@+id/tag_edittext"
+        android:text=""
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -31,7 +32,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/cancelButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -47,12 +48,12 @@
         android:textStyle="bold"
         app:backgroundTint="@color/lightGray"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button"
+        app:layout_constraintEnd_toStartOf="@+id/confirmButton"
         app:layout_constraintStart_toStartOf="@id/tag_edittext"
         app:layout_constraintTop_toBottomOf="@id/tag_edittext" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/confirmButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -69,7 +70,7 @@
         app:backgroundTint="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/tag_edittext"
-        app:layout_constraintStart_toEndOf="@+id/button2"
+        app:layout_constraintStart_toEndOf="@+id/cancelButton"
         app:layout_constraintTop_toBottomOf="@id/tag_edittext" />
 
 

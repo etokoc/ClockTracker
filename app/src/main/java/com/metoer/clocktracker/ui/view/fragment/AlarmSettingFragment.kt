@@ -1,5 +1,6 @@
 package com.metoer.clocktracker.ui.view.fragment
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import com.metoer.clocktracker.other.DialogCreater
 import com.metoer.clocktracker.other.showToastShort
 import com.metoer.clocktracker.ui.view.activity.ClockActivity
 import kotlinx.android.synthetic.main.fragment_alarm_setting.*
+import kotlinx.android.synthetic.main.tag_bottom_dialog.*
 
 
 class AlarmSettingFragment : BaseFragment() {
@@ -33,6 +35,7 @@ class AlarmSettingFragment : BaseFragment() {
         return binding.root
     }
 
+    var tagText = ""
     override fun onResume() {
         super.onResume()
         binding.apply {
@@ -50,11 +53,19 @@ class AlarmSettingFragment : BaseFragment() {
             }
             //Etiket Satırı
             linear_3.setOnClickListener {
-                showDialog(
+                val addTagDialog = showDialog(
                     R.style.BottomDialog,
                     R.layout.tag_bottom_dialog,
                     R.style.BottomDialog_Animation
                 )
+                addTagDialog.apply {
+                    confirmButton.setOnClickListener {
+                        tagText = tag_edittext.text.toString()
+                        binding.tvTagDescription.text = tagText
+                        cancel()
+                    }
+                    cancelButton.setOnClickListener { cancel() }
+                }
             }
         }
     }
@@ -64,13 +75,14 @@ class AlarmSettingFragment : BaseFragment() {
         (requireActivity() as ClockActivity).hideBar()
     }
 
-    fun showDialog(style: Int, item: Int, animation: Int) {
-        DialogCreater(
+    fun showDialog(style: Int, item: Int, animation: Int): Dialog {
+        val dialog = DialogCreater(
             requireContext(),
             style,
             item,
             animation
         ).showDialog()
+        return dialog
     }
 
 }
