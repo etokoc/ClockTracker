@@ -11,7 +11,7 @@ class AlarmService(val context: Context) {
         val alarmCalender = Calendar.getInstance()
         val calSet = alarmCalender.clone() as Calendar
         calSet[Calendar.HOUR_OF_DAY] = 23
-        calSet[Calendar.MINUTE] = 43
+        calSet[Calendar.MINUTE] = 50
         calSet[Calendar.SECOND] = 0
         calSet[Calendar.MILLISECOND] = 0
         val intent = Intent(context, AlarmReceiver::class.java)

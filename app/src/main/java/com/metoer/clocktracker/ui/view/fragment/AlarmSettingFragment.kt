@@ -5,14 +5,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.metoer.clocktracker.R
 import com.metoer.clocktracker.base.BaseFragment
 import com.metoer.clocktracker.databinding.FragmentAlarmSettingBinding
 import com.metoer.clocktracker.other.DialogCreater
 import com.metoer.clocktracker.other.alarm.AlarmService
+import com.metoer.clocktracker.other.showToastShort
 import com.metoer.clocktracker.ui.view.activity.ClockActivity
 import com.metoer.clocktracker.ui.viewmodel.AlarmSettingsViewModel
+import kotlinx.android.synthetic.main.again_bottom_dialog.*
+import kotlinx.android.synthetic.main.again_day_dialog.*
 import kotlinx.android.synthetic.main.fragment_alarm_setting.*
 import kotlinx.android.synthetic.main.tag_bottom_dialog.*
 
@@ -49,11 +53,40 @@ class AlarmSettingFragment : BaseFragment() {
             }
             //Tekrar Satırı
             linear_2.setOnClickListener {
-                showDialog(
+                val againDialog = showDialog(
                     R.style.BottomDialog,
                     R.layout.again_bottom_dialog,
                     R.style.BottomDialog_Animation
                 )
+                againDialog.apply {
+                    rbSpecialDay.setOnClickListener {
+                        cancel()
+                        val specialDialog = showDialog(
+                            R.style.BottomDialog,
+                            R.layout.again_day_dialog,
+                            R.style.BottomDialog_Animation
+                        )
+                        specialDialog.apply {
+                            val list = ArrayList<Boolean>()
+                            val checkBoxtList = listOf(
+                                cbDay1,
+                                cbDay2,
+                                cbDay3,
+                                cbDay4,
+                                cbDay5,
+                                cbDay6,
+                                cbDay7
+                            )
+                            btnAgainConfirm.setOnClickListener {
+                                for (item in checkBoxtList) {
+                                    list.add(item.isChecked)
+                                }
+                                context.showToastShort(list.toString())
+                                cancel()
+                            }
+                        }
+                    }
+                }
             }
             //Etiket Satırı
             linear_3.setOnClickListener {
