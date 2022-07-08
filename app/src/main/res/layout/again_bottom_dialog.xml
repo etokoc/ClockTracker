@@ -30,8 +30,8 @@
                 android:text="@string/bir_kez"
                 android:textColor="@color/black"
                 android:padding="24dp"
+                android:background="@drawable/rb_selection_selector"
                 android:button="@null"
-                android:backgroundTint="@drawable/rb_selection_selector"
                 android:textSize="16sp"
                 />
 
@@ -45,7 +45,7 @@
                 android:textStyle="bold"
                 android:button="@null"
                 android:drawablePadding="8dp"
-                android:backgroundTint="@drawable/rb_selection_selector"
+                android:background="@drawable/rb_selection_selector"
                 android:text="@string/all_day"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
@@ -58,7 +58,7 @@
                 android:focusable="true"
                 android:padding="24dp"
                 android:button="@null"
-                android:backgroundTint="@drawable/rb_selection_selector"
+                android:background="@drawable/rb_selection_selector"
                 android:textStyle="bold"
                 android:text="@string/pazartesi_cuma"
                 android:textColor="@color/black"
@@ -75,7 +75,7 @@
                 android:textStyle="bold"
                 android:button="@null"
                 android:gravity="center_vertical"
-                android:backgroundTint="@drawable/rb_selection_selector"
+                android:background="@drawable/rb_selection_selector"
                 android:text="@string/special"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
