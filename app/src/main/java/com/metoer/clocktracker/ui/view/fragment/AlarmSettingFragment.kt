@@ -5,18 +5,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import com.metoer.clocktracker.R
 import com.metoer.clocktracker.base.BaseFragment
 import com.metoer.clocktracker.databinding.FragmentAlarmSettingBinding
 import com.metoer.clocktracker.other.DialogCreater
-import com.metoer.clocktracker.other.showToastShort
+import com.metoer.clocktracker.other.alarm.AlarmService
 import com.metoer.clocktracker.ui.view.activity.ClockActivity
+import com.metoer.clocktracker.ui.viewmodel.AlarmSettingsViewModel
 import kotlinx.android.synthetic.main.fragment_alarm_setting.*
 import kotlinx.android.synthetic.main.tag_bottom_dialog.*
 
 
 class AlarmSettingFragment : BaseFragment() {
 
+    private var viewModel: AlarmSettingsViewModel? = null
     private var _binding: FragmentAlarmSettingBinding? = null
     private val binding
         get() = _binding!!
@@ -26,6 +29,7 @@ class AlarmSettingFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAlarmSettingBinding.inflate(inflater, container, false)
+        viewModel = ViewModelProvider(this).get(AlarmSettingsViewModel::class.java)
         hideBar()
 
         binding.apply {
@@ -41,7 +45,7 @@ class AlarmSettingFragment : BaseFragment() {
         binding.apply {
             //Zil Sesi Satırı
             linear_1.setOnClickListener {
-                requireContext().showToastShort("Satır-1")
+                getRingtone()
             }
             //Tekrar Satırı
             linear_2.setOnClickListener {
@@ -70,7 +74,6 @@ class AlarmSettingFragment : BaseFragment() {
         }
     }
 
-
     override fun hideBar() {
         (requireActivity() as ClockActivity).hideBar()
     }
@@ -84,5 +87,15 @@ class AlarmSettingFragment : BaseFragment() {
         ).showDialog()
         return dialog
     }
+
+    private fun getRingtone() {
+//        val intent = Intent()
+//        intent.setType("audio/*")
+//        intent.setAction(Intent.ACTION_GET_CONTENT)
+//        requireContext().startActivity(intent)
+        val service = AlarmService(requireActivity().applicationContext)
+        service.createAlarm()
+    }
+
 
 }
