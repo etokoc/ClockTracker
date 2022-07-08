@@ -25,13 +25,13 @@
                 android:id="@+id/rbOnceDay"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawablePadding="8dp"
                 android:textStyle="bold"
                 android:text="@string/bir_kez"
-                android:textColor="@color/black"
+                android:textColor="@drawable/rb_selection_text_selector"
                 android:padding="24dp"
                 android:background="@drawable/rb_selection_selector"
                 android:button="@null"
+                android:drawableTint="@color/white"
                 android:textSize="16sp"
                 />
 
@@ -44,10 +44,10 @@
                 android:padding="24dp"
                 android:textStyle="bold"
                 android:button="@null"
-                android:drawablePadding="8dp"
+                android:drawableTint="@color/white"
                 android:background="@drawable/rb_selection_selector"
                 android:text="@string/all_day"
-                android:textColor="@color/black"
+                android:textColor="@drawable/rb_selection_text_selector"
                 android:textSize="16sp" />
 
             <RadioButton
@@ -60,8 +60,9 @@
                 android:button="@null"
                 android:background="@drawable/rb_selection_selector"
                 android:textStyle="bold"
+                android:drawableTint="@color/white"
                 android:text="@string/pazartesi_cuma"
-                android:textColor="@color/black"
+                android:textColor="@drawable/rb_selection_text_selector"
                 android:textSize="16sp" />
 
             <RadioButton
@@ -70,14 +71,14 @@
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:focusable="true"
-                android:drawablePadding="8dp"
                 android:padding="24dp"
                 android:textStyle="bold"
                 android:button="@null"
                 android:gravity="center_vertical"
                 android:background="@drawable/rb_selection_selector"
                 android:text="@string/special"
-                android:textColor="@color/black"
+                android:drawableTint="@color/white"
+                android:textColor="@drawable/rb_selection_text_selector"
                 android:textSize="16sp" />
 
         </RadioGroup>
