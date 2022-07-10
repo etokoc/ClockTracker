@@ -24,4 +24,5 @@
     <string name="saturday">Cumartesi</string>
     <string name="sunday">Pazar</string>
     <string name="snooze">Snooze</string>
+    <string name="turn_off">Turn Off</string>
 </resources>

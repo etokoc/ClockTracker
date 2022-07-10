@@ -4,11 +4,11 @@ import android.app.*
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
-import android.widget.RemoteViews
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -59,16 +59,17 @@ class AlarmReceiver : BroadcastReceiver() {
             addNextIntentWithParentStack(intent)
             getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
         }
-        val notificatioLayout =
-            RemoteViews(context!!.packageName.toString(), R.layout.custom_notification)
 
-        val notification: Notification = NotificationCompat.Builder(context, CHANNEL_ID)
+        val notification: Notification = NotificationCompat.Builder(context!!, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_alarm)
             .setAutoCancel(true)
-            .setStyle(NotificationCompat.DecoratedCustomViewStyle())
-            .setContent(notificatioLayout)
+            .setContentText("Uyanma Vakti")
+            .setContentTitle("Title")
             .setContentIntent(pendingIntent)
+            .setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.ic_alarm))
             .setShowWhen(true)
+            .addAction(R.mipmap.ic_launcher, context.getString(R.string.snooze), null)
+            .addAction(R.mipmap.ic_launcher, context.getString(R.string.turn_off), null)
             .build()
 
         val notificationManager = NotificationManagerCompat.from(context)
