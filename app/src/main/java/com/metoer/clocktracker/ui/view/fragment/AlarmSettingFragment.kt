@@ -121,9 +121,10 @@ class AlarmSettingFragment : BaseFragment() {
 //        intent.setType("audio/*")
 //        intent.setAction(Intent.ACTION_GET_CONTENT)
 //        requireContext().startActivity(intent)
-        val service = AlarmService(requireActivity().applicationContext)
+        val service = AlarmService(requireActivity().applicationContext,"")
         service.createAlarm(getTimeFromPicker())
     }
+
 
     private val calNow: Calendar? = Calendar.getInstance()
     private val calSet = calNow?.clone() as Calendar
