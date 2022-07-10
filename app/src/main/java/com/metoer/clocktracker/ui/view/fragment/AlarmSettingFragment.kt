@@ -15,6 +15,7 @@ import com.metoer.clocktracker.ui.view.activity.ClockActivity
 import com.metoer.clocktracker.ui.viewmodel.AlarmSettingsViewModel
 import kotlinx.android.synthetic.main.fragment_alarm_setting.*
 import kotlinx.android.synthetic.main.tag_bottom_dialog.*
+import java.util.*
 
 
 class AlarmSettingFragment : BaseFragment() {
@@ -42,6 +43,7 @@ class AlarmSettingFragment : BaseFragment() {
     var tagText = ""
     override fun onResume() {
         super.onResume()
+        syncTimePicker()
         binding.apply {
             //Zil Sesi Satırı
             linear_1.setOnClickListener {
@@ -94,7 +96,26 @@ class AlarmSettingFragment : BaseFragment() {
 //        intent.setAction(Intent.ACTION_GET_CONTENT)
 //        requireContext().startActivity(intent)
         val service = AlarmService(requireActivity().applicationContext)
-        service.createAlarm()
+        service.createAlarm(getTimeFromPicker())
+    }
+
+    private val calNow: Calendar? = Calendar.getInstance()
+    private val calSet = calNow?.clone() as Calendar
+    private fun getTimeFromPicker(): Calendar {
+        return calSet
+    }
+
+    private fun syncTimePicker() {
+        pickertime.setOnTimeChangedListener { view, hourOfDay, minute ->
+            calSet.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            calSet.set(Calendar.MINUTE, minute);
+            calSet.set(Calendar.SECOND, 0);
+            calSet.set(Calendar.MILLISECOND, 0);
+
+            if (calSet <= calNow!!) {
+                calSet.add(Calendar.DATE, 1);
+            }
+        }
     }
 
 
