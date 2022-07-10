@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.metoer.clocktracker.R
 import com.metoer.clocktracker.base.BaseFragment
@@ -44,7 +43,12 @@ class AlarmSettingFragment : BaseFragment() {
         return binding.root
     }
 
-    var tagText = ""
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private var tagText = ""
     override fun onResume() {
         super.onResume()
         binding.apply {
@@ -69,7 +73,7 @@ class AlarmSettingFragment : BaseFragment() {
                         )
                         specialDialog.apply {
                             btnAgainConfirm.setOnClickListener {
-                                val getSelection=ViewListController.getSelection(linearLayout)
+                                val getSelection = ViewListController.getSelection(linearLayout)
                                 context.showToastShort(getSelection.toString())
                                 cancel()
                             }
