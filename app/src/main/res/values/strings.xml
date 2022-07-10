@@ -16,4 +16,11 @@
     <string name="special">Özel</string>
     <string name="confirm">Onayla</string>
     <string name="cancel">İptal</string>
+    <string name="monday">Pazartesi</string>
+    <string name="thuesday">Salı</string>
+    <string name="wednesday">Çarşamba</string>
+    <string name="thursday">Perşembe</string>
+    <string name="friday">Cuma</string>
+    <string name="saturday">Cumartesi</string>
+    <string name="sunday">Pazar</string>
 </resources>

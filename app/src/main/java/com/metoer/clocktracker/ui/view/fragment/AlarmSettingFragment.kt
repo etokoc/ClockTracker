@@ -10,9 +10,13 @@ import com.metoer.clocktracker.R
 import com.metoer.clocktracker.base.BaseFragment
 import com.metoer.clocktracker.databinding.FragmentAlarmSettingBinding
 import com.metoer.clocktracker.other.DialogCreater
+import com.metoer.clocktracker.other.ViewListController
 import com.metoer.clocktracker.other.alarm.AlarmService
+import com.metoer.clocktracker.other.showToastShort
 import com.metoer.clocktracker.ui.view.activity.ClockActivity
 import com.metoer.clocktracker.ui.viewmodel.AlarmSettingsViewModel
+import kotlinx.android.synthetic.main.again_bottom_dialog.*
+import kotlinx.android.synthetic.main.again_day_dialog.*
 import kotlinx.android.synthetic.main.fragment_alarm_setting.*
 import kotlinx.android.synthetic.main.tag_bottom_dialog.*
 import java.util.*
@@ -40,7 +44,12 @@ class AlarmSettingFragment : BaseFragment() {
         return binding.root
     }
 
-    var tagText = ""
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private var tagText = ""
     override fun onResume() {
         super.onResume()
         syncTimePicker()
@@ -51,11 +60,28 @@ class AlarmSettingFragment : BaseFragment() {
             }
             //Tekrar Satırı
             linear_2.setOnClickListener {
-                showDialog(
+                val againDialog = showDialog(
                     R.style.BottomDialog,
                     R.layout.again_bottom_dialog,
                     R.style.BottomDialog_Animation
                 )
+                againDialog.apply {
+                    rbSpecialDay.setOnClickListener {
+                        cancel()
+                        val specialDialog = showDialog(
+                            R.style.BottomDialog,
+                            R.layout.again_day_dialog,
+                            R.style.BottomDialog_Animation
+                        )
+                        specialDialog.apply {
+                            btnAgainConfirm.setOnClickListener {
+                                val getSelection = ViewListController.getSelection(linearLayout)
+                                context.showToastShort(getSelection.toString())
+                                cancel()
+                            }
+                        }
+                    }
+                }
             }
             //Etiket Satırı
             linear_3.setOnClickListener {
