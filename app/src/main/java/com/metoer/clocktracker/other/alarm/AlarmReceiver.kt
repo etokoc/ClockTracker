@@ -10,6 +10,7 @@ import android.net.Uri
 import android.os.Build
 import android.widget.RemoteViews
 import androidx.annotation.RequiresApi
+import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.metoer.clocktracker.R
 import com.metoer.clocktracker.ui.view.activity.ClockActivity
@@ -51,19 +52,23 @@ class AlarmReceiver : BroadcastReceiver() {
         manager.createNotificationChannel(channel)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun createNotification(context: Context?) {
-        val intent = Intent(context,ClockActivity::class.java)
-        val pendingIntent =  TaskStackBuilder.create(context).run {
+        val intent = Intent(context, ClockActivity::class.java)
+        val pendingIntent = TaskStackBuilder.create(context).run {
             addNextIntentWithParentStack(intent)
-            getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT)
+            getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
         }
-        val notificatioLayout= RemoteViews(context!!.packageName,R.layout.custom_notification)
+        val notificatioLayout =
+            RemoteViews(context!!.packageName.toString(), R.layout.custom_notification)
 
-        val notification: Notification = Notification.Builder(context, CHANNEL_ID)
+        val notification: Notification = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_alarm)
             .setAutoCancel(true)
-            //.setCustomContentView(notificatioLayout)
+            .setStyle(NotificationCompat.DecoratedCustomViewStyle())
+            .setContent(notificatioLayout)
             .setContentIntent(pendingIntent)
+            .setShowWhen(true)
             .build()
 
         val notificationManager = NotificationManagerCompat.from(context)
