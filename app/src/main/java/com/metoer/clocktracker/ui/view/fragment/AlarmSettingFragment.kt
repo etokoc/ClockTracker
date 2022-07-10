@@ -11,6 +11,7 @@ import com.metoer.clocktracker.R
 import com.metoer.clocktracker.base.BaseFragment
 import com.metoer.clocktracker.databinding.FragmentAlarmSettingBinding
 import com.metoer.clocktracker.other.DialogCreater
+import com.metoer.clocktracker.other.ViewListController
 import com.metoer.clocktracker.other.alarm.AlarmService
 import com.metoer.clocktracker.other.showToastShort
 import com.metoer.clocktracker.ui.view.activity.ClockActivity
@@ -67,21 +68,9 @@ class AlarmSettingFragment : BaseFragment() {
                             R.style.BottomDialog_Animation
                         )
                         specialDialog.apply {
-                            val list = ArrayList<Boolean>()
-                            val checkBoxtList = listOf(
-                                cbDay1,
-                                cbDay2,
-                                cbDay3,
-                                cbDay4,
-                                cbDay5,
-                                cbDay6,
-                                cbDay7
-                            )
                             btnAgainConfirm.setOnClickListener {
-                                for (item in checkBoxtList) {
-                                    list.add(item.isChecked)
-                                }
-                                context.showToastShort(list.toString())
+                                val getSelection=ViewListController.getSelection(linearLayout)
+                                context.showToastShort(getSelection.toString())
                                 cancel()
                             }
                         }
