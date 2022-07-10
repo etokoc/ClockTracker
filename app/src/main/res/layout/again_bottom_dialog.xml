@@ -5,6 +5,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/againButtomLinear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/dialog_background"
@@ -16,70 +17,70 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <RadioGroup
+            android:id="@+id/againBottomRadioGroup"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:checkedButton="@id/rbOnceDay">
+            android:checkedButton="@id/rbOnceDay"
+            android:orientation="vertical">
 
             <RadioButton
                 android:id="@+id/rbOnceDay"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:text="@string/bir_kez"
-                android:textColor="@drawable/rb_selection_text_selector"
-                android:padding="24dp"
                 android:background="@drawable/rb_selection_selector"
                 android:button="@null"
                 android:drawableTint="@color/white"
+                android:padding="24dp"
+                android:text="@string/bir_kez"
+                android:textColor="@drawable/rb_selection_text_selector"
                 android:textSize="16sp"
-                />
+                android:textStyle="bold" />
 
             <RadioButton
                 android:id="@+id/rbEveryDay"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/rb_selection_selector"
+                android:button="@null"
                 android:clickable="true"
+                android:drawableTint="@color/white"
                 android:focusable="true"
                 android:padding="24dp"
-                android:textStyle="bold"
-                android:button="@null"
-                android:drawableTint="@color/white"
-                android:background="@drawable/rb_selection_selector"
                 android:text="@string/all_day"
                 android:textColor="@drawable/rb_selection_text_selector"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <RadioButton
                 android:id="@+id/rbWeekDay"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/rb_selection_selector"
+                android:button="@null"
                 android:clickable="true"
+                android:drawableTint="@color/white"
                 android:focusable="true"
                 android:padding="24dp"
-                android:button="@null"
-                android:background="@drawable/rb_selection_selector"
-                android:textStyle="bold"
-                android:drawableTint="@color/white"
                 android:text="@string/pazartesi_cuma"
                 android:textColor="@drawable/rb_selection_text_selector"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <RadioButton
                 android:id="@+id/rbSpecialDay"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:clickable="true"
-                android:focusable="true"
-                android:padding="24dp"
-                android:textStyle="bold"
-                android:button="@null"
-                android:gravity="center_vertical"
                 android:background="@drawable/rb_selection_selector"
-                android:text="@string/special"
+                android:button="@null"
+                android:clickable="true"
                 android:drawableTint="@color/white"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:padding="24dp"
+                android:text="@string/special"
                 android:textColor="@drawable/rb_selection_text_selector"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
         </RadioGroup>
 

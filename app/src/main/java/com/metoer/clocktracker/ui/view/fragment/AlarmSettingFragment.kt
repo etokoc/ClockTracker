@@ -21,7 +21,6 @@ import kotlinx.android.synthetic.main.fragment_alarm_setting.*
 import kotlinx.android.synthetic.main.tag_bottom_dialog.*
 import java.util.*
 
-
 class AlarmSettingFragment : BaseFragment() {
 
     private var viewModel: AlarmSettingsViewModel? = null
@@ -40,7 +39,6 @@ class AlarmSettingFragment : BaseFragment() {
         binding.apply {
             pickertime.setIs24HourView(true)
         }
-
         return binding.root
     }
 
@@ -66,6 +64,22 @@ class AlarmSettingFragment : BaseFragment() {
                     R.style.BottomDialog_Animation
                 )
                 againDialog.apply {
+                    rbOnceDay.setOnClickListener {
+                        /* val date = Calendar.getInstance().time.after()
+                         context.showToastShort(date.toString())
+                             cancel()*/
+                    }
+
+                    rbEveryDay.setOnClickListener {
+                        context.showToastShort(Calendar.DATE.toString())
+                        cancel()
+                    }
+
+                    rbWeekDay.setOnClickListener {
+                        context.showToastShort("Haftaiçi")
+                        cancel()
+                    }
+
                     rbSpecialDay.setOnClickListener {
                         cancel()
                         val specialDialog = showDialog(
@@ -74,6 +88,9 @@ class AlarmSettingFragment : BaseFragment() {
                             R.style.BottomDialog_Animation
                         )
                         specialDialog.apply {
+                            btnAgainCancel.setOnClickListener {
+                                cancel()
+                            }
                             btnAgainConfirm.setOnClickListener {
                                 val getSelection = ViewListController.getSelection(linearLayout)
                                 context.showToastShort(getSelection.toString())
@@ -134,16 +151,14 @@ class AlarmSettingFragment : BaseFragment() {
 
     private fun syncTimePicker() {
         pickertime.setOnTimeChangedListener { view, hourOfDay, minute ->
-            calSet.set(Calendar.HOUR_OF_DAY, hourOfDay);
-            calSet.set(Calendar.MINUTE, minute);
-            calSet.set(Calendar.SECOND, 0);
-            calSet.set(Calendar.MILLISECOND, 0);
+            calSet.set(Calendar.HOUR_OF_DAY, hourOfDay)
+            calSet.set(Calendar.MINUTE, minute)
+            calSet.set(Calendar.SECOND, 0)
+            calSet.set(Calendar.MILLISECOND, 0)
 
             if (calSet <= calNow!!) {
-                calSet.add(Calendar.DATE, 1);
+                calSet.add(Calendar.DATE, 1)
             }
         }
     }
-
-
 }

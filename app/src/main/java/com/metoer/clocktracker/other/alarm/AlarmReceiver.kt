@@ -1,17 +1,18 @@
 package com.metoer.clocktracker.other.alarm
 
-import android.R
-import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
+import android.app.*
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
+import android.widget.RemoteViews
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.app.NotificationManagerCompat
+import com.metoer.clocktracker.R
+import com.metoer.clocktracker.ui.view.activity.ClockActivity
 
 
 class AlarmReceiver : BroadcastReceiver() {
@@ -27,28 +28,46 @@ class AlarmReceiver : BroadcastReceiver() {
         }
         val ringtone = RingtoneManager.getRingtone(context, alarmRingtone)
         ringtone.play()
+        createNotificationChannel(context)
         createNotification(context)
     }
 
+    private val CHANNEL_ID = "clockID"
+    private val CHANNEL_NAME = "channelName"
+    private val NOTIFICATION_ID = 61
+
     @RequiresApi(Build.VERSION_CODES.O)
-    fun createNotification(context: Context?) {
-//        val CHANNEL_ID = "mobilhanem";
-//        val CHANNEL_NAME = "Mobilhanem Dersleri"
-//        val channel = NotificationChannel(
-//            CHANNEL_ID,
-//            CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT
-//        );
-//        channel.enableVibration(true);
-//        val manager = context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-//
-//        val NOTIFICATION_ID = 52 //Notification id si, channel ile ilgisi bulunmuyor
-//
-//        val notification: Notification =Notification.Builder(context, CHANNEL_ID)
-//            .setContentTitle("Mobilhanem Notification Channel")
-//            .setContentText("Example Text")
-//            .setSmallIcon(R.drawable.btn_star)
-//            .setAutoCancel(true)
-//            .build()
-//        manager!!.notify(NOTIFICATION_ID, notification)
+    fun createNotificationChannel(context: Context?) {
+
+        val channel = NotificationChannel(
+            CHANNEL_ID,
+            CHANNEL_NAME,
+            NotificationManager.IMPORTANCE_DEFAULT
+        ).apply {
+            lightColor = Color.GREEN
+            enableLights(true)
+        }
+        val manager = context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        manager.createNotificationChannel(channel)
     }
+
+    fun createNotification(context: Context?) {
+        val intent = Intent(context,ClockActivity::class.java)
+        val pendingIntent =  TaskStackBuilder.create(context).run {
+            addNextIntentWithParentStack(intent)
+            getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT)
+        }
+        val notificatioLayout= RemoteViews(context!!.packageName,R.layout.custom_notification)
+
+        val notification: Notification = Notification.Builder(context, CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_alarm)
+            .setAutoCancel(true)
+            //.setCustomContentView(notificatioLayout)
+            .setContentIntent(pendingIntent)
+            .build()
+
+        val notificationManager = NotificationManagerCompat.from(context)
+        notificationManager.notify(NOTIFICATION_ID, notification)
+    }
+
 }
