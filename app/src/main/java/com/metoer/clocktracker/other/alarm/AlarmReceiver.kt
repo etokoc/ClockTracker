@@ -31,6 +31,7 @@ class AlarmReceiver : BroadcastReceiver() {
         ringtone.play()
         createNotificationChannel(context)
         createNotification(context)
+
     }
 
     private val CHANNEL_ID = "clockID"
@@ -68,12 +69,30 @@ class AlarmReceiver : BroadcastReceiver() {
             .setContentIntent(pendingIntent)
             .setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.ic_alarm))
             .setShowWhen(true)
-            .addAction(R.mipmap.ic_launcher, context.getString(R.string.snooze), null)
+            .setFullScreenIntent(
+                PendingIntent.getActivity(
+                    context,
+                    102,
+                    Intent(context, ClockActivity::class.java),
+                    PendingIntent.FLAG_UPDATE_CURRENT
+                ), true
+            )
+            .addAction(
+                R.mipmap.ic_launcher,
+                context.getString(R.string.snooze),
+                PendingIntent.getActivity(
+                    context,
+                    101,
+                    Intent(context, ClockActivity::class.java),
+                    PendingIntent.FLAG_UPDATE_CURRENT
+                )
+            )
             .addAction(R.mipmap.ic_launcher, context.getString(R.string.turn_off), null)
             .build()
 
         val notificationManager = NotificationManagerCompat.from(context)
         notificationManager.notify(NOTIFICATION_ID, notification)
     }
+
 
 }
