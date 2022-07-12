@@ -17,6 +17,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.metoer.clocktracker.R
+import com.metoer.clocktracker.other.Constants
 import com.metoer.clocktracker.ui.view.activity.ClockActivity
 
 
@@ -34,7 +35,7 @@ class AlarmReceiver : BroadcastReceiver() {
         if (alarmRingtone == null) {
             alarmRingtone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
         }
-        if (intent?.action == TURNOFF || intent?.action == SNOOZE) {
+        if (intent?.action == Constants.TURNOFF || intent?.action == Constants.SNOOZE) {
             ringtone.stop()
             alarmButtonControl(context, intent)
         } else {
@@ -46,26 +47,21 @@ class AlarmReceiver : BroadcastReceiver() {
     }
 
     private fun alarmButtonControl(context: Context?, intent: Intent) {
-        NotificationManagerCompat.from(context!!).cancel(NOTIFICATION_ID)
+        NotificationManagerCompat.from(context!!).cancel(Constants.NOTIFICATION_ID)
         when (intent.action) {
-            TURNOFF -> {
+            Constants.TURNOFF -> {
             }
-            SNOOZE -> {}
+            Constants.SNOOZE -> {}
         }
     }
 
-    private val CHANNEL_ID = "clockID"
-    private val SNOOZE = "SNOOZE"
-    private val TURNOFF = "TURNOFF"
-    private val CHANNEL_NAME = "channelName"
-    private val NOTIFICATION_ID = 61
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun createNotificationChannel(context: Context?) {
 
         val channel = NotificationChannel(
-            CHANNEL_ID,
-            CHANNEL_NAME,
+            Constants.CHANNEL_ID,
+            Constants.CHANNEL_NAME,
             NotificationManager.IMPORTANCE_DEFAULT
         ).apply {
             lightColor = Color.GREEN
@@ -83,7 +79,7 @@ class AlarmReceiver : BroadcastReceiver() {
             getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
         }
 
-        val notification = NotificationCompat.Builder(context!!, CHANNEL_ID)
+        val notification = NotificationCompat.Builder(context!!, Constants.CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_alarm)
             .setAutoCancel(true)
             .setContentText("Uyanma Vakti")
@@ -105,7 +101,7 @@ class AlarmReceiver : BroadcastReceiver() {
                 PendingIntent.getBroadcast(
                     context,
                     101,
-                    addIntent(SNOOZE, context),
+                    addIntent(Constants.SNOOZE, context),
                     PendingIntent.FLAG_UPDATE_CURRENT
                 )
             )
@@ -115,13 +111,13 @@ class AlarmReceiver : BroadcastReceiver() {
                 PendingIntent.getBroadcast(
                     context,
                     101,
-                    addIntent(TURNOFF, context),
+                    addIntent(Constants.TURNOFF, context),
                     PendingIntent.FLAG_UPDATE_CURRENT
                 )
             )
             .build()
         val notificationManager = NotificationManagerCompat.from(context)
-        notificationManager.notify(NOTIFICATION_ID, notification)
+        notificationManager.notify(Constants.NOTIFICATION_ID, notification)
     }
 
     fun addIntent(action: String, context: Context?): Intent {
