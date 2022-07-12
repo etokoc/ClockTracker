@@ -23,7 +23,8 @@ import com.metoer.clocktracker.ui.view.activity.ClockActivity
 
 class AlarmReceiver : BroadcastReceiver() {
     private var alarmRingtone: Uri? = null
-    companion object{
+
+    companion object {
         private lateinit var ringtone: Ringtone
     }
 
@@ -64,6 +65,7 @@ class AlarmReceiver : BroadcastReceiver() {
             Constants.CHANNEL_NAME,
             NotificationManager.IMPORTANCE_DEFAULT
         ).apply {
+            lockscreenVisibility = NotificationCompat.VISIBILITY_PUBLIC
             lightColor = Color.GREEN
             enableLights(true)
         }
@@ -78,7 +80,13 @@ class AlarmReceiver : BroadcastReceiver() {
             addNextIntentWithParentStack(intent)
             getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
         }
-
+        val fullScreenIntent = Intent(context, ClockActivity::class.java)
+        val fullScreenPendingIntent = PendingIntent.getActivity(
+            context,
+            0,
+            fullScreenIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
         val notification = NotificationCompat.Builder(context!!, Constants.CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_alarm)
             .setAutoCancel(true)
@@ -87,14 +95,7 @@ class AlarmReceiver : BroadcastReceiver() {
             .setContentIntent(pendingIntent)
             .setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.ic_alarm))
             .setShowWhen(true)
-            .setFullScreenIntent(
-                PendingIntent.getActivity(
-                    context,
-                    102,
-                    Intent(context, ClockActivity::class.java),
-                    PendingIntent.FLAG_UPDATE_CURRENT
-                ), true
-            )
+            .setFullScreenIntent(fullScreenPendingIntent,true)
             .addAction(
                 R.mipmap.ic_launcher,
                 context.getString(R.string.snooze),

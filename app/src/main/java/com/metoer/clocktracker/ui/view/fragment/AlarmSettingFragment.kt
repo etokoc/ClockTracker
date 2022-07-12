@@ -2,9 +2,7 @@ package com.metoer.clocktracker.ui.view.fragment
 
 import android.app.Dialog
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.lifecycle.ViewModelProvider
 import com.metoer.clocktracker.R
 import com.metoer.clocktracker.base.BaseFragment
@@ -65,9 +63,6 @@ class AlarmSettingFragment : BaseFragment() {
                 )
                 againDialog.apply {
                     rbOnceDay.setOnClickListener {
-                        /* val date = Calendar.getInstance().time.after()
-                         context.showToastShort(date.toString())
-                             cancel()*/
                     }
 
                     rbEveryDay.setOnClickListener {

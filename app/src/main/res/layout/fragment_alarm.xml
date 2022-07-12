@@ -6,13 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".ui.view.fragment.AlarmFragment">
 
-    <TextView
-        android:id="@+id/textView"
+    <pl.droidsonroids.gif.GifImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/alarm"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@drawable/animation_ring_rin"
+        app:layout_constraintBottom_toTopOf="@+id/fabTimePickerDialog"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,11 +22,11 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:clickable="true"
-        app:tint="@color/appBlue"
-        app:backgroundTint="@color/white"
+        android:focusable="true"
         android:src="@drawable/ic_add"
+        app:backgroundTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:focusable="true" />
+        app:tint="@color/appBlue" />
 </androidx.constraintlayout.widget.ConstraintLayout>
