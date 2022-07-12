@@ -22,6 +22,9 @@ import com.metoer.clocktracker.ui.view.activity.ClockActivity
 
 class AlarmReceiver : BroadcastReceiver() {
     private var alarmRingtone: Uri? = null
+    companion object{
+        private lateinit var ringtone: Ringtone
+    }
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onReceive(context: Context?, intent: Intent?) {
@@ -31,11 +34,11 @@ class AlarmReceiver : BroadcastReceiver() {
         if (alarmRingtone == null) {
             alarmRingtone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
         }
-
-        val ringtone = RingtoneManager.getRingtone(context, alarmRingtone)
         if (intent?.action == TURNOFF || intent?.action == SNOOZE) {
+            ringtone.stop()
             alarmButtonControl(context, intent)
         } else {
+            ringtone = RingtoneManager.getRingtone(context, alarmRingtone)
             ringtone.play()
             createNotificationChannel(context)
             createNotification(context)
