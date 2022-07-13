@@ -15,6 +15,7 @@ import androidx.core.app.NotificationManagerCompat
 import com.metoer.clocktracker.R
 import com.metoer.clocktracker.other.Constants
 import com.metoer.clocktracker.ui.view.activity.ClockActivity
+import com.metoer.clocktracker.ui.view.activity.LockScreenActivity
 
 
 class AlarmReceiver : BroadcastReceiver() {
@@ -87,7 +88,7 @@ class AlarmReceiver : BroadcastReceiver() {
             addNextIntentWithParentStack(intent)
             getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
         }
-        val fullScreenIntent = Intent(context, ClockActivity::class.java)
+        val fullScreenIntent = Intent(context, LockScreenActivity::class.java)
         val fullScreenPendingIntent = PendingIntent.getActivity(
             context,
             0,

@@ -18,6 +18,9 @@
         android:theme="@style/Theme.ClockTracker"
         tools:targetApi="31">
         <activity
+            android:name=".LockScreenActivity"
+            android:showOnLockScreen="true" />
+        <activity
             android:name=".ui.view.activity.ClockActivity"
             android:exported="true"
             android:screenOrientation="portrait"
