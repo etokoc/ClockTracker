@@ -25,4 +25,8 @@
     <string name="sunday">Pazar</string>
     <string name="snooze">Snooze</string>
     <string name="turn_off">Turn Off</string>
+    <string name="reddet">Reddet</string>
+    <string name="permission_warning">Uygulama ayarlarından kilit ekranında görüntüle seçeneğine izin verin\n yol: \n Diğer İzinler -> Kilit Ekranında Görüntüle</string>
+    <string name="permission_title">İZİN İSTEĞİ</string>
+    <string name="go_settings_text">Ayarlara Git</string>
 </resources>

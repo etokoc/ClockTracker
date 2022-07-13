@@ -6,4 +6,5 @@ object Constants {
      val TURNOFF = "TURNOFF"
      val CHANNEL_NAME = "channelName"
      val NOTIFICATION_ID = 61
+     val SHAREDPREFENCES_NAME = "ClockSharedPrefences"
 }
