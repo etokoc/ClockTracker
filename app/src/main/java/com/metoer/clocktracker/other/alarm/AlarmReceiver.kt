@@ -127,8 +127,9 @@ class AlarmReceiver : BroadcastReceiver() {
                 )
             )
             .build()
-        val notificationManager = NotificationManagerCompat.from(context)
-        notificationManager.notify(Constants.NOTIFICATION_ID, notification)
+        with(NotificationManagerCompat.from(context)) {
+            notify(Constants.NOTIFICATION_ID, notification)
+        }
     }
 
     fun addIntent(action: String, context: Context?): Intent {
