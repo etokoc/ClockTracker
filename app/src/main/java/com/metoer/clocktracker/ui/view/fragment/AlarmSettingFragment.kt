@@ -10,6 +10,7 @@ import com.metoer.clocktracker.databinding.FragmentAlarmSettingBinding
 import com.metoer.clocktracker.other.DialogCreater
 import com.metoer.clocktracker.other.ViewListController
 import com.metoer.clocktracker.other.alarm.AlarmService
+import com.metoer.clocktracker.other.showToastLong
 import com.metoer.clocktracker.other.showToastShort
 import com.metoer.clocktracker.ui.view.activity.ClockActivity
 import com.metoer.clocktracker.ui.viewmodel.AlarmSettingsViewModel
@@ -52,6 +53,7 @@ class AlarmSettingFragment : BaseFragment() {
         binding.apply {
             //Zil Sesi Satırı
             linear_1.setOnClickListener {
+                context?.showToastLong("Click Zil Sesi")
                 getRingtone()
             }
             //Tekrar Satırı

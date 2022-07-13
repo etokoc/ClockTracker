@@ -1,9 +1,6 @@
 package com.metoer.clocktracker.other.alarm
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
-import android.app.TaskStackBuilder
+import android.app.*
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -63,7 +60,7 @@ class AlarmReceiver : BroadcastReceiver() {
         val channel = NotificationChannel(
             Constants.CHANNEL_ID,
             Constants.CHANNEL_NAME,
-            NotificationManager.IMPORTANCE_DEFAULT
+            NotificationManager.IMPORTANCE_HIGH
         ).apply {
             lockscreenVisibility = NotificationCompat.VISIBILITY_PUBLIC
             lightColor = Color.GREEN
@@ -87,11 +84,14 @@ class AlarmReceiver : BroadcastReceiver() {
             fullScreenIntent,
             PendingIntent.FLAG_UPDATE_CURRENT
         )
-        val notification = NotificationCompat.Builder(context!!, Constants.CHANNEL_ID)
+        val notification = Notification.Builder(context!!, Constants.CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_alarm)
             .setAutoCancel(true)
             .setContentText("Uyanma Vakti")
             .setContentTitle("Title")
+            .setPriority(Notification.PRIORITY_HIGH)
+            .setOngoing(true)
+            .setDefaults(Notification.DEFAULT_ALL)
             .setContentIntent(pendingIntent)
             .setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.ic_alarm))
             .setShowWhen(true)
