@@ -40,9 +40,13 @@ class AlarmReceiver : BroadcastReceiver() {
             ringtone.play()
             createNotificationChannel(context)
             createNotification(context)
+            openWakeLockScreenService(context)
         }
     }
 
+    private fun openWakeLockScreenService(context: Context?) {
+        LockScreenOpener.openLockScreen(context!!)
+    }
     private fun alarmButtonControl(context: Context?, intent: Intent) {
         NotificationManagerCompat.from(context!!).cancel(Constants.NOTIFICATION_ID)
         when (intent.action) {
