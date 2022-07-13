@@ -6,15 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.view.fragment.AlarmFragment">
 
-    <pl.droidsonroids.gif.GifImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/animation_ring_rin"
-        app:layout_constraintBottom_toTopOf="@+id/fabTimePickerDialog"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabTimePickerDialog"
