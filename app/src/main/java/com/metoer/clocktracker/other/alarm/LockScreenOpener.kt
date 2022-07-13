@@ -13,7 +13,8 @@ abstract class LockScreenOpener{
                         PowerManager.ACQUIRE_CAUSES_WAKEUP or
                         PowerManager.ON_AFTER_RELEASE, "WakeLock"
             )
-            wakeLock?.acquire()
+            wakeLock?.acquire(1*60*1000L) //bu süre 1 dakika sonra ekran uyandırmayı serbest bırakmak için böyle yazıldı
+
         }
         fun releaseLockScreen() {
             if (wakeLock != null) wakeLock?.release()

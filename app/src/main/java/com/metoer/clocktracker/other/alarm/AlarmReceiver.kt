@@ -36,17 +36,24 @@ class AlarmReceiver : BroadcastReceiver() {
             ringtone.stop()
             alarmButtonControl(context, intent)
         } else {
-            ringtone = RingtoneManager.getRingtone(context, alarmRingtone)
-            ringtone.play()
+            playRingtone(context)
             createNotificationChannel(context)
             createNotification(context)
             openWakeLockScreenService(context)
         }
     }
 
+    private fun playRingtone(context: Context?) {
+        ringtone = RingtoneManager.getRingtone(context, alarmRingtone)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
+            ringtone.isLooping = true
+        ringtone.play()
+    }
+
     private fun openWakeLockScreenService(context: Context?) {
         LockScreenOpener.openLockScreen(context!!)
     }
+
     private fun alarmButtonControl(context: Context?, intent: Intent) {
         NotificationManagerCompat.from(context!!).cancel(Constants.NOTIFICATION_ID)
         when (intent.action) {
