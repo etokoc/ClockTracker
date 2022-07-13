@@ -18,6 +18,6 @@ class AlarmService(val context: Context, var selectionRingtone: String?) {
         intent.putExtra("ringtone", selectionRingtone ?: "")
         val pendingIntent = PendingIntent.getBroadcast(context, 100, intent, 0)
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager?
-        alarmManager?.set(AlarmManager.RTC_WAKEUP, calSet.timeInMillis, pendingIntent)
+        alarmManager?.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calSet.timeInMillis, pendingIntent)
     }
 }

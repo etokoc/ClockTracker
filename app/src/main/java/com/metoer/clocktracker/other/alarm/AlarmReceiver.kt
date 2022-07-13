@@ -4,7 +4,6 @@ import android.app.*
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.media.Ringtone
 import android.media.RingtoneManager
@@ -93,9 +92,8 @@ class AlarmReceiver : BroadcastReceiver() {
             .setOngoing(true)
             .setDefaults(Notification.DEFAULT_ALL)
             .setContentIntent(pendingIntent)
-            .setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.ic_alarm))
             .setShowWhen(true)
-            .setFullScreenIntent(fullScreenPendingIntent,true)
+            .setFullScreenIntent(fullScreenPendingIntent, true)
             .addAction(
                 R.mipmap.ic_launcher,
                 context.getString(R.string.snooze),
