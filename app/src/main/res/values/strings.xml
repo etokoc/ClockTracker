@@ -29,4 +29,7 @@
     <string name="permission_warning">Uygulama ayarlarından kilit ekranında görüntüle seçeneğine izin verin\n yol: \n Diğer İzinler -> Kilit Ekranında Görüntüle</string>
     <string name="permission_title">İZİN İSTEĞİ</string>
     <string name="go_settings_text">Ayarlara Git</string>
+    <string name="defaul_time">09:00</string>
+    <string name="ayirici">|</string>
+    <string name="default_time_description">Alarm 9 saat 00 dakika sonra çalacaktır</string>
 </resources>
