@@ -2,11 +2,15 @@ package com.metoer.clocktracker.ui.view.fragment
 
 import android.app.Dialog
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.metoer.clocktracker.R
 import com.metoer.clocktracker.base.BaseFragment
 import com.metoer.clocktracker.databinding.FragmentAlarmSettingBinding
+import com.metoer.clocktracker.day.DayController
+import com.metoer.clocktracker.day.DayEnum
 import com.metoer.clocktracker.other.DialogCreater
 import com.metoer.clocktracker.other.ViewListController
 import com.metoer.clocktracker.other.alarm.AlarmService
@@ -46,6 +50,7 @@ class AlarmSettingFragment : BaseFragment() {
         _binding = null
     }
 
+    var dayController = DayController()
     private var tagText = ""
     override fun onResume() {
         super.onResume()
@@ -65,14 +70,17 @@ class AlarmSettingFragment : BaseFragment() {
                 )
                 againDialog.apply {
                     rbOnceDay.setOnClickListener {
+                        dayController.selectDay(DayEnum.ONEDAY, null)
                     }
 
                     rbEveryDay.setOnClickListener {
+                        dayController.selectDay(DayEnum.EVERYDAY, null)
                         context.showToastShort(Calendar.DATE.toString())
                         cancel()
                     }
 
                     rbWeekDay.setOnClickListener {
+                        dayController.selectDay(DayEnum.WEEKDAY, null)
                         context.showToastShort("Haftaiçi")
                         cancel()
                     }
@@ -90,7 +98,7 @@ class AlarmSettingFragment : BaseFragment() {
                             }
                             btnAgainConfirm.setOnClickListener {
                                 val getSelection = ViewListController.getSelection(linearLayout)
-                                context.showToastShort(getSelection.toString())
+                                dayController.selectDay(DayEnum.SPECIALDAY, getSelection)
                                 cancel()
                             }
                         }

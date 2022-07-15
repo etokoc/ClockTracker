@@ -47,4 +47,10 @@ fun Activity.turnScreenOnAndKeyguardOff() {
     }
 }
 
+fun Boolean.convertToInt(): Int {
+    return if (this)
+        1
+    else 0
+}
+
 
