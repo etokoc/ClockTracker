@@ -6,7 +6,9 @@ import android.content.Context
 import android.os.Build
 import android.view.View
 import android.view.WindowManager
+import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 
 fun View.hide() {
     this.visibility = View.GONE
@@ -18,6 +20,10 @@ fun View.show() {
 
 fun View.invs() {
     this.visibility = View.INVISIBLE
+}
+
+fun TextView.textColors(colorId:Int){
+    this.setTextColor(ContextCompat.getColor(context,colorId))
 }
 
 fun Context.showToastLong(text: String) {
