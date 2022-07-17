@@ -18,7 +18,6 @@ class AlarmViewModel(
     var personsList = MutableLiveData<List<ClockItem>>()
 
     fun getAllAlarmData() {
-
         repository.getAllClockItems()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

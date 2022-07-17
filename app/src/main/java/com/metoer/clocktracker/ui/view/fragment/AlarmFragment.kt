@@ -46,10 +46,10 @@ class AlarmFragment : BaseFragment(), KodeinAware {
 
         viewmodel.apply {
             binding.rvAlarmList.layoutManager = LinearLayoutManager(context)
-            val adapter = ClockAdapter(listOf())
-            binding.rvAlarmList.adapter = adapter
             personsList.apply {
                 observe(viewLifecycleOwner, Observer {
+                    val adapter = ClockAdapter(this.value!!)
+                    binding.rvAlarmList.adapter = adapter
 
                 })
             }
@@ -81,6 +81,7 @@ class AlarmFragment : BaseFragment(), KodeinAware {
     override fun onResume() {
         super.onResume()
         visibleBar()
+        viewmodel.getAllAlarmData()
         if (clicked) {
             setAnimation(true)
             clicked = false
