@@ -7,10 +7,13 @@ import android.view.ViewGroup
 import androidx.navigation.Navigation
 import com.metoer.clocktracker.R
 import com.metoer.clocktracker.base.BaseFragment
+import com.metoer.clocktracker.data.db.ClockDatabase
+import com.metoer.clocktracker.data.db.ClockItem
+import com.metoer.clocktracker.data.repositories.ClockRepository
 import com.metoer.clocktracker.databinding.FragmentAlarmBinding
 import com.metoer.clocktracker.model.Alarm
-import com.metoer.clocktracker.other.adapter.ClockAdapter
 import com.metoer.clocktracker.other.MyAnimations
+import com.metoer.clocktracker.other.adapter.ClockAdapter
 import com.metoer.clocktracker.ui.view.activity.ClockActivity
 import kotlinx.android.synthetic.main.fragment_alarm.*
 

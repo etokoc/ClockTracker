@@ -3,15 +3,17 @@ package com.metoer.clockacker.data.db
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.metoer.clocktracker.data.db.ClockItem
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Single
 
 @Dao
 interface ClockDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun updateAdd(item: ClockItem)
+    fun updateAdd(item: ClockItem): Completable
 
     @Delete
-    suspend fun delete(item: ClockItem)
+    fun delete(item: ClockItem): Completable
 
     @Query("SELECT * FROM alarm_items")
-    fun getAllClockItems(): LiveData<List<ClockItem>>
+    fun getAllClockItems(): Single<List<ClockItem>>
 }
