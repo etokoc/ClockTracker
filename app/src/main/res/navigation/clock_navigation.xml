@@ -34,5 +34,14 @@
         android:id="@+id/alarmSettingFragment"
         android:name="com.metoer.clocktracker.ui.view.fragment.AlarmSettingFragment"
         android:label="fragment_alarm_setting"
-        tools:layout="@layout/fragment_alarm_setting" />
+        tools:layout="@layout/fragment_alarm_setting" >
+        <action
+            android:id="@+id/action_alarmSettingFragment_to_ringtoneFragment"
+            app:destination="@id/ringtoneFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ringtoneFragment"
+        android:name="com.metoer.clocktracker.ui.view.fragment.RingtoneFragment"
+        android:label="fragment_ringtone"
+        tools:layout="@layout/fragment_ringtone" />
 </navigation>

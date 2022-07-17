@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import com.metoer.clocktracker.R
 import com.metoer.clocktracker.base.BaseFragment
 import com.metoer.clocktracker.databinding.FragmentAlarmSettingBinding
@@ -13,7 +14,6 @@ import com.metoer.clocktracker.day.DayController
 import com.metoer.clocktracker.day.DayEnum
 import com.metoer.clocktracker.other.DialogCreater
 import com.metoer.clocktracker.other.ViewListController
-import com.metoer.clocktracker.other.alarm.AlarmService
 import com.metoer.clocktracker.other.showToastLong
 import com.metoer.clocktracker.other.showToastShort
 import com.metoer.clocktracker.ui.view.activity.ClockActivity
@@ -23,6 +23,7 @@ import kotlinx.android.synthetic.main.again_day_dialog.*
 import kotlinx.android.synthetic.main.fragment_alarm_setting.*
 import kotlinx.android.synthetic.main.tag_bottom_dialog.*
 import java.util.*
+
 
 class AlarmSettingFragment : BaseFragment() {
 
@@ -140,11 +141,13 @@ class AlarmSettingFragment : BaseFragment() {
 
     private fun getRingtone() {
 //        val intent = Intent()
+        Navigation.findNavController(requireView())
+            .navigate(R.id.action_alarmSettingFragment_to_ringtoneFragment)
 //        intent.setType("audio/*")
 //        intent.setAction(Intent.ACTION_GET_CONTENT)
 //        requireContext().startActivity(intent)
-        val service = AlarmService(requireActivity().applicationContext,"")
-        service.createAlarm(getTimeFromPicker())
+//        val service = AlarmService(requireActivity().applicationContext, "")
+//        service.createAlarm(getTimeFromPicker())
     }
 
 

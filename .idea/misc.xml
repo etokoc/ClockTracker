@@ -13,6 +13,8 @@
         <entry key="..\:/Users/ErtugrulKoc/AndroidStudioProjects/ClockTracker/app/src/main/res/drawable/bottom_bar_selector.xml" value="0.124" />
         <entry key="..\:/Users/ErtugrulKoc/AndroidStudioProjects/ClockTracker/app/src/main/res/layout/fragment_alarm.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/ErtugrulKoc/AndroidStudioProjects/ClockTracker/app/src/main/res/layout/fragment_count_down.xml" value="0.17831813576494426" />
+        <entry key="..\:/Users/ErtugrulKoc/AndroidStudioProjects/ClockTracker/app/src/main/res/layout/fragment_ringtone.xml" value="0.33" />
+        <entry key="..\:/Users/ErtugrulKoc/AndroidStudioProjects/ClockTracker/app/src/main/res/layout/ringtone_row_item.xml" value="0.25" />
       </map>
     </option>
   </component>

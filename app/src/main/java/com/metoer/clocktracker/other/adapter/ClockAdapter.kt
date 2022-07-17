@@ -1,4 +1,4 @@
-package com.metoer.clocktracker.other
+package com.metoer.clocktracker.other.adapter
 
 import android.view.LayoutInflater
 import android.view.View

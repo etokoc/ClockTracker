@@ -9,7 +9,7 @@ import com.metoer.clocktracker.R
 import com.metoer.clocktracker.base.BaseFragment
 import com.metoer.clocktracker.databinding.FragmentAlarmBinding
 import com.metoer.clocktracker.model.Alarm
-import com.metoer.clocktracker.other.ClockAdapter
+import com.metoer.clocktracker.other.adapter.ClockAdapter
 import com.metoer.clocktracker.other.MyAnimations
 import com.metoer.clocktracker.ui.view.activity.ClockActivity
 import kotlinx.android.synthetic.main.fragment_alarm.*
@@ -30,7 +30,7 @@ class AlarmFragment : BaseFragment() {
     ): View {
         _binding = FragmentAlarmBinding.inflate(inflater, container, false)
         val list: ArrayList<Alarm>
-        val listAdapter:ClockAdapter? = null
+        val listAdapter: ClockAdapter? = null
         binding.apply {
 
             fabTimePickerDialog.setOnClickListener {
