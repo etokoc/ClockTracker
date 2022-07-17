@@ -1,8 +1,10 @@
 package com.metoer.clocktracker.other.adapter
 
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.metoer.clocktracker.R
 import com.metoer.clocktracker.data.db.ClockItem
@@ -24,14 +26,15 @@ class ClockAdapter(
         return ListViewHolder(view)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val currentItems = items[position]
         holder.itemView.apply {
             tvAlarmTime.text = currentItems.time
             tvAlarmAgain.text = DayController().getDayString(currentItems.date.toString())
-            tvAlarmTag.text = "Burada kullanıcının eklediği tag yazacak"
+            tvAlarmTag.text = currentItems.tag
             tvAlarmDescription.invs()
-            tvAlarmDescription.text = "Buraya alarmın kaç saat ve dakika sonra çalacağı yazacak"
+            tvAlarmDescription.text = DayController().remaining(currentItems.time)
             switchAlarm.setOnCheckedChangeListener { compoundButton, isChecked ->
                 if (isChecked) {
                     tvAlarmTime.textColors(R.color.black)

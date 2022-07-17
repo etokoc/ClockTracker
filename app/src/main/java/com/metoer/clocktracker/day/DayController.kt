@@ -1,6 +1,10 @@
 package com.metoer.clocktracker.day
 
+import android.os.Build
+import androidx.annotation.RequiresApi
+import com.metoer.clocktracker.model.ClockModel
 import com.metoer.clocktracker.other.convertToInt
+import java.time.LocalDateTime
 
 class DayController {
     companion object {
@@ -54,5 +58,22 @@ class DayController {
             }
         }
         return selectDaysString
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun remaining(date: String): String {
+        var hour = date.substring(0, date.indexOf(':')).toInt()
+        var minute = date.substring(date.indexOf(':') + 1, date.length).toInt()
+        val today = getToday()
+        var remainHour = hour - today.hour
+        var remainMinute = minute - today.minute
+
+        return "$remainHour saat $remainMinute dakika kaldı."
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getToday(): ClockModel {
+        val today = LocalDateTime.now()
+        return ClockModel(today.hour, today.minute)
     }
 }
