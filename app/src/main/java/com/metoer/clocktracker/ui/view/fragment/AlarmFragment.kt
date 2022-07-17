@@ -4,22 +4,31 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.metoer.clocktracker.R
 import com.metoer.clocktracker.base.BaseFragment
-import com.metoer.clocktracker.data.db.ClockDatabase
-import com.metoer.clocktracker.data.db.ClockItem
-import com.metoer.clocktracker.data.repositories.ClockRepository
 import com.metoer.clocktracker.databinding.FragmentAlarmBinding
-import com.metoer.clocktracker.model.Alarm
 import com.metoer.clocktracker.other.MyAnimations
 import com.metoer.clocktracker.other.adapter.ClockAdapter
 import com.metoer.clocktracker.ui.view.activity.ClockActivity
+import com.metoer.clocktracker.ui.view.factories.AlarmViewModelFactory
+import com.metoer.clocktracker.ui.viewmodel.AlarmViewModel
 import kotlinx.android.synthetic.main.fragment_alarm.*
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.kodein
+import org.kodein.di.generic.instance
 
-class AlarmFragment : BaseFragment() {
+class AlarmFragment : BaseFragment(), KodeinAware {
+
+    override val kodein by kodein()
+    private val factory: AlarmViewModelFactory by instance()
 
     private var clicked = false
+
+    private lateinit var viewmodel: AlarmViewModel
 
     private var _binding: FragmentAlarmBinding? = null
     private val binding
@@ -32,8 +41,20 @@ class AlarmFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAlarmBinding.inflate(inflater, container, false)
-        val list: ArrayList<Alarm>
-        val listAdapter: ClockAdapter? = null
+
+        viewmodel = ViewModelProvider(this, factory).get(AlarmViewModel::class.java)
+
+        viewmodel.apply {
+            binding.rvAlarmList.layoutManager = LinearLayoutManager(context)
+            val adapter = ClockAdapter(listOf())
+            binding.rvAlarmList.adapter = adapter
+            personsList.apply {
+                observe(viewLifecycleOwner, Observer {
+
+                })
+            }
+        }
+
         binding.apply {
 
             fabTimePickerDialog.setOnClickListener {

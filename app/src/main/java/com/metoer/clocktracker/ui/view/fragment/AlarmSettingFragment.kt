@@ -9,6 +9,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.metoer.clocktracker.R
 import com.metoer.clocktracker.base.BaseFragment
+import com.metoer.clocktracker.data.db.ClockDatabase
+import com.metoer.clocktracker.data.db.ClockItem
+import com.metoer.clocktracker.data.repositories.ClockRepository
 import com.metoer.clocktracker.databinding.FragmentAlarmSettingBinding
 import com.metoer.clocktracker.day.DayController
 import com.metoer.clocktracker.day.DayEnum
@@ -17,7 +20,9 @@ import com.metoer.clocktracker.other.ViewListController
 import com.metoer.clocktracker.other.showToastLong
 import com.metoer.clocktracker.other.showToastShort
 import com.metoer.clocktracker.ui.view.activity.ClockActivity
+import com.metoer.clocktracker.ui.view.factories.AlarmSettingsViewModelFactory
 import com.metoer.clocktracker.ui.viewmodel.AlarmSettingsViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.again_bottom_dialog.*
 import kotlinx.android.synthetic.main.again_day_dialog.*
 import kotlinx.android.synthetic.main.fragment_alarm_setting.*
@@ -37,7 +42,13 @@ class AlarmSettingFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAlarmSettingBinding.inflate(inflater, container, false)
-        viewModel = ViewModelProvider(this).get(AlarmSettingsViewModel::class.java)
+
+        //Hatalı yazış
+        val database = ClockDatabase(requireContext())
+        val repository = ClockRepository(database!!)
+        val factory = AlarmSettingsViewModelFactory(repository)
+
+        viewModel = ViewModelProvider(this, factory).get(AlarmSettingsViewModel::class.java)
         hideBar()
 
         binding.apply {
@@ -55,6 +66,12 @@ class AlarmSettingFragment : BaseFragment() {
     private var tagText = ""
     override fun onResume() {
         super.onResume()
+
+        requireActivity().ib_Success.setOnClickListener {
+            viewModel!!.updateAdd(ClockItem("09:00",1111111,"Mehter MARŞI", "Ömeri uyutmama"))
+            context?.showToastShort("Tıkladım")
+        }
+
         syncTimePicker()
         binding.apply {
             //Zil Sesi Satırı
