@@ -1,4 +1,4 @@
-package com.metoer.clocktracker.ui.view.fragment
+package com.metoer.clocktracker.ui.viewmodel
 
 import android.app.Activity
 import android.database.Cursor
