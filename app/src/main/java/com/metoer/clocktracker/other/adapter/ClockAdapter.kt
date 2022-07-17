@@ -9,6 +9,7 @@ import com.metoer.clocktracker.data.db.ClockItem
 import com.metoer.clocktracker.day.DayController
 import com.metoer.clocktracker.other.invs
 import com.metoer.clocktracker.other.show
+import com.metoer.clocktracker.other.textColors
 import kotlinx.android.synthetic.main.item_alarm_list.view.*
 
 class ClockAdapter(
@@ -28,13 +29,23 @@ class ClockAdapter(
         holder.itemView.apply {
             tvAlarmTime.text = currentItems.time
             tvAlarmAgain.text = DayController().getDayString(currentItems.date.toString())
+            tvAlarmTag.text = "Burada kullanıcının eklediği tag yazacak"
             tvAlarmDescription.invs()
-            tvAlarmDescription.text = "Alarm 9 saat 00 dk sonra çalacak"
+            tvAlarmDescription.text = "Buraya alarmın kaç saat ve dakika sonra çalacağı yazacak"
             switchAlarm.setOnCheckedChangeListener { compoundButton, isChecked ->
-                if (isChecked)
+                if (isChecked) {
+                    tvAlarmTime.textColors(R.color.black)
+                    tvAlarmAgain.textColors(R.color.alarmTextColorSelected)
+                    tvAlarmDescription.textColors(R.color.alarmTextColorSelected)
+                    tvAlarmTag.textColors(R.color.alarmTextColorSelected)
                     tvAlarmDescription.show()
-                else
+                } else {
+                    tvAlarmTime.textColors(R.color.alarmTextColorUnSelected)
+                    tvAlarmAgain.textColors(R.color.alarmTextColorUnSelected)
+                    tvAlarmDescription.textColors(R.color.alarmTextColorUnSelected)
+                    tvAlarmTag.textColors(R.color.alarmTextColorUnSelected)
                     tvAlarmDescription.invs()
+                }
             }
         }
     }
