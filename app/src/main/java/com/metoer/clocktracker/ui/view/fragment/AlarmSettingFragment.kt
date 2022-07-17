@@ -1,6 +1,7 @@
 package com.metoer.clocktracker.ui.view.fragment
 
 import android.app.Dialog
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +15,7 @@ import com.metoer.clocktracker.data.db.ClockItem
 import com.metoer.clocktracker.data.repositories.ClockRepository
 import com.metoer.clocktracker.databinding.FragmentAlarmSettingBinding
 import com.metoer.clocktracker.day.DayController
-import com.metoer.clocktracker.day.DayEnum
+import com.metoer.clocktracker.day.DayStatusEnum
 import com.metoer.clocktracker.other.DialogCreater
 import com.metoer.clocktracker.other.ViewListController
 import com.metoer.clocktracker.other.showToastLong
@@ -37,6 +38,10 @@ class AlarmSettingFragment : BaseFragment() {
     private val binding
         get() = _binding!!
 
+    private var selectedRingtoneUri: Uri? = null
+    private var selectedTag: String? = ""
+    private var selectedTime: String? = "09:00"
+    private var selectedDate: String? = "0000000"
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -63,13 +68,18 @@ class AlarmSettingFragment : BaseFragment() {
     }
 
     var dayController = DayController()
-    private var tagText = ""
     override fun onResume() {
         super.onResume()
 
         requireActivity().ib_Success.setOnClickListener {
-            viewModel!!.updateAdd(ClockItem("09:00",1111111,"Mehter MARŞI", "Ömeri uyutmama"))
-            context?.showToastShort("Tıkladım")
+            viewModel!!.updateAdd(
+                ClockItem(
+                    selectedTime ?: "09:00",
+                    selectedDate ?: "0000000",
+                    "Mehter MARŞI",
+                    selectedTag ?: "Alarm"
+                )
+            )
         }
 
         syncTimePicker()
@@ -88,17 +98,17 @@ class AlarmSettingFragment : BaseFragment() {
                 )
                 againDialog.apply {
                     rbOnceDay.setOnClickListener {
-                        dayController.selectDay(DayEnum.ONEDAY, null)
+                        selectedDate = dayController.selectDay(DayStatusEnum.ONEDAY, null)
                     }
 
                     rbEveryDay.setOnClickListener {
-                        dayController.selectDay(DayEnum.EVERYDAY, null)
+                        selectedDate = dayController.selectDay(DayStatusEnum.EVERYDAY, null)
                         context.showToastShort(Calendar.DATE.toString())
                         cancel()
                     }
 
                     rbWeekDay.setOnClickListener {
-                        dayController.selectDay(DayEnum.WEEKDAY, null)
+                        selectedDate = dayController.selectDay(DayStatusEnum.WEEKDAY, null)
                         context.showToastShort("Haftaiçi")
                         cancel()
                     }
@@ -116,7 +126,8 @@ class AlarmSettingFragment : BaseFragment() {
                             }
                             btnAgainConfirm.setOnClickListener {
                                 val getSelection = ViewListController.getSelection(linearLayout)
-                                dayController.selectDay(DayEnum.SPECIALDAY, getSelection)
+                                selectedDate =
+                                    dayController.selectDay(DayStatusEnum.SPECIALDAY, getSelection)
                                 cancel()
                             }
                         }
@@ -132,8 +143,8 @@ class AlarmSettingFragment : BaseFragment() {
                 )
                 addTagDialog.apply {
                     confirmButton.setOnClickListener {
-                        tagText = tag_edittext.text.toString()
-                        binding.tvTagDescription.text = tagText
+                        selectedTag = tag_edittext.text.toString()
+                        binding.tvTagDescription.text = selectedTag
                         cancel()
                     }
                     cancelButton.setOnClickListener { cancel() }
@@ -184,6 +195,7 @@ class AlarmSettingFragment : BaseFragment() {
             if (calSet <= calNow!!) {
                 calSet.add(Calendar.DATE, 1)
             }
+            selectedTime = "$hourOfDay:$minute"
         }
     }
 }

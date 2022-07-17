@@ -9,7 +9,7 @@ data class ClockItem(
     @ColumnInfo(name = "time")
     var time: String,
     @ColumnInfo(name = "repeat")
-    var date: Int,
+    var date: String,
     @ColumnInfo(name = "ring_sound")
     var ringSound: String,
     @ColumnInfo(name = "tag")

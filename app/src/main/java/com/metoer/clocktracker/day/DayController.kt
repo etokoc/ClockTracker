@@ -4,31 +4,55 @@ import com.metoer.clocktracker.other.convertToInt
 
 class DayController {
     companion object {
-        var selectedDay = "0"
+        var selectedDay = "0000000"
     }
 
-    fun selectDay(dayEnum: DayEnum, specialDays: ArrayList<Boolean>?) {
+    fun selectDay(dayEnum: DayStatusEnum, specialDays: ArrayList<Boolean>?): String {
         selectedDay = when (dayEnum) {
-            DayEnum.ONEDAY -> {
+            DayStatusEnum.ONEDAY -> {
                 "1"
             }
-            DayEnum.WEEKDAY -> {
+            DayStatusEnum.WEEKDAY -> {
                 "1111100"
             }
-            DayEnum.EVERYDAY -> {
+            DayStatusEnum.EVERYDAY -> {
                 "1111111"
             }
-            DayEnum.SPECIALDAY -> {
-                booleanConvertToInt(specialDays!!)
+            DayStatusEnum.SPECIALDAY -> {
+                booleanConvertToString(specialDays!!)
             }
         }
+        return selectedDay
     }
 
-    private fun booleanConvertToInt(arrayList: ArrayList<Boolean>): String {
+    private fun booleanConvertToString(arrayList: ArrayList<Boolean>): String {
         var string = ""
         arrayList.forEachIndexed { index, b ->
             string += b.convertToInt().toString()
         }
         return string
+    }
+
+    fun getDayString(days: String): String {
+        var selectDaysString = ""
+        when {
+            days.toInt() == 1111100 -> {
+                selectDaysString = "Hafta içi"
+            }
+            days.toInt() == 1111111 -> {
+                selectDaysString = "Her gün"
+            }
+            days == "0000011" -> {
+                selectDaysString = "Hafta sonu"
+            }
+            else -> {
+                days.forEachIndexed { index, c ->
+                    if (c == '1') {
+                        selectDaysString += DayStringEnum.values()[index].toString() + " "
+                    }
+                }
+            }
+        }
+        return selectDaysString
     }
 }

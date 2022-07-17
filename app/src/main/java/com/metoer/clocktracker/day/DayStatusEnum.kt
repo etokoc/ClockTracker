@@ -1,5 +1,5 @@
 package com.metoer.clocktracker.day
 
-enum class DayEnum {
+enum class DayStatusEnum {
     EVERYDAY, WEEKDAY, SPECIALDAY, ONEDAY
 }
