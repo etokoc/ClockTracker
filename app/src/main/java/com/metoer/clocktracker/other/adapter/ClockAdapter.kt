@@ -29,12 +29,14 @@ class ClockAdapter(
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val currentItems = items[position]
+        val str = DayController().getMostDay(currentItems.date)
         holder.itemView.apply {
             tvAlarmTime.text = currentItems.time
-            tvAlarmAgain.text = DayController().getDayString(currentItems.date.toString())
+            tvAlarmAgain.text = DayController().getDayString(currentItems.date)
             tvAlarmTag.text = currentItems.tag
             tvAlarmDescription.invs()
-            tvAlarmDescription.text = DayController().remaining(currentItems.time)
+            tvAlarmDescription.text =
+                DayController().remaining(currentItems.time, currentItems.date)
             switchAlarm.setOnCheckedChangeListener { compoundButton, isChecked ->
                 if (isChecked) {
                     tvAlarmTime.textColors(R.color.black)

@@ -5,6 +5,8 @@ import androidx.annotation.RequiresApi
 import com.metoer.clocktracker.model.ClockModel
 import com.metoer.clocktracker.other.convertToInt
 import java.time.LocalDateTime
+import java.util.*
+
 
 class DayController {
     companion object {
@@ -61,19 +63,52 @@ class DayController {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun remaining(date: String): String {
-        var hour = date.substring(0, date.indexOf(':')).toInt()
-        var minute = date.substring(date.indexOf(':') + 1, date.length).toInt()
-        val today = getToday()
-        var remainHour = hour - today.hour
-        var remainMinute = minute - today.minute
+    fun remaining(date: String, intDate: String): String {
+        val hour = date.substring(0, date.indexOf(':')).toInt()
+        val minute = date.substring(date.indexOf(':') + 1, date.length).toInt()
+        var dt = Date()
+        val c = Calendar.getInstance()
+        c.time = dt
+        c.add(Calendar.DATE, getMostDay(intDate).toInt())
+        dt = c.time
+        dt.hours = hour
+        dt.minutes = minute
+        val secondTime = dt
 
-        return "$remainHour saat $remainMinute dakika kaldı."
+        val millis = secondTime.time - System.currentTimeMillis()
+        val hours: Long = millis / (1000 * 60 * 60)
+        val mins: Long = millis / (1000 * 60) % 60
+        return "$hours saat $mins dakika kaldı."
     }
+
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun getToday(): ClockModel {
         val today = LocalDateTime.now()
         return ClockModel(today.hour, today.minute)
+    }
+
+    fun getMostDay(days: String): String {
+        val inDay = Calendar.getInstance().time.day
+        var startDay = 0
+        var endDate = 0
+        days.forEachIndexed { index, c ->
+            if (inDay - 1 == index) {
+                startDay = index
+                for (item in index until days.length) {
+                    if (days[item] == '1') {
+                        endDate = item
+                        break
+                    }
+                }
+            }
+        }
+
+        var sonuc = endDate - startDay
+        if (sonuc < 0) {
+            sonuc += 7
+        }
+
+        return sonuc.toString()
     }
 }
