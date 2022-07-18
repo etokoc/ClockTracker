@@ -80,6 +80,7 @@ class AlarmSettingFragment : BaseFragment() {
                     selectedTag ?: "Alarm"
                 )
             )
+            Navigation.findNavController(it).navigate(R.id.action_alarmSettingFragment_to_alarmFragment)
         }
 
         syncTimePicker()
