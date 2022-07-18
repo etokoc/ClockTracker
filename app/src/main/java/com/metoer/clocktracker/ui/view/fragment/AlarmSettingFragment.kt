@@ -195,7 +195,15 @@ class AlarmSettingFragment : BaseFragment() {
             if (calSet <= calNow!!) {
                 calSet.add(Calendar.DATE, 1)
             }
-            selectedTime = "$hourOfDay:$minute"
+
+            var selectHour = hourOfDay.toString()
+            var selectMinute = minute.toString()
+            if (hourOfDay < 10)
+                selectHour = "0$hourOfDay"
+            if (minute < 10)
+                selectMinute = "0$minute"
+
+            selectedTime = "$selectHour:$selectMinute"
         }
     }
 }
