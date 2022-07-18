@@ -37,7 +37,18 @@
         tools:layout="@layout/fragment_alarm_setting" >
         <action
             android:id="@+id/action_alarmSettingFragment_to_ringtoneFragment"
-            app:destination="@id/ringtoneFragment" />
+            app:destination="@id/ringtoneFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_alarmSettingFragment_to_alarmFragment"
+            app:destination="@id/alarmFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right"
+            app:popEnterAnim="@anim/from_right"
+            app:popExitAnim="@anim/to_left" />
     </fragment>
     <fragment
         android:id="@+id/ringtoneFragment"
