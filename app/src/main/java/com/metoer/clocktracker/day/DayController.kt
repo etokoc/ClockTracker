@@ -78,24 +78,25 @@ class DayController {
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun remaining(date: String, intDate: String): String {
-        val alarmTime=alarmTime(date)
-        val hour=alarmTime.hour
-        val minute=alarmTime.minute
+        val alarmTime = alarmTime(date)
+        val hour = alarmTime.hour
+        val minute = alarmTime.minute
         var dt = Date()
         val c = Calendar.getInstance()
         c.time = dt
-        c.add(Calendar.DATE, getMostDay(intDate,date).toInt())
+        c.add(Calendar.DATE, getMostDay(intDate, date).toInt())
         dt = c.time
         dt.hours = hour
         dt.minutes = minute
         val secondTime = dt
         val millis = secondTime.time - System.currentTimeMillis()
-        val hours: Long = millis / (1000 * 60 * 60)
+        val days: Long = millis / (1000 * 60 * 60 * 24)
+        val hours: Long = millis / (1000 * 60 * 60) % 24
         val mins: Long = millis / (1000 * 60) % 60
-        return "$hours saat $mins dakika kaldı."
+        return "$days Gün $hours saat $mins dakika kaldı."
     }
 
-    fun getMostDay(days: String,date:String): String {
+    fun getMostDay(days: String, date: String): String {
         val inDay = Calendar.getInstance().time.day
         var startDay = 0
         var nextDate = 0
@@ -111,8 +112,13 @@ class DayController {
                     if (mills > 0 && days[item] == '1') {
                         nextDate = item
                         break
-                    } else if (mills < 0 && days[item] == '1') {
-                        nextDate = item + 1
+                    } else if (inDay < item && days[item] == '1') {
+                        nextDate = item
+                        break
+
+                    }
+                    else if (inDay == item && mills < 0 && days[item] == '1') {
+                        nextDate = item
                         break
                     }
                 }
@@ -137,7 +143,4 @@ class DayController {
         return ClockModel(today.hour, today.minute)
     }
 
-    /*fun timeIsBackNow() {
-
-    }*/
 }
