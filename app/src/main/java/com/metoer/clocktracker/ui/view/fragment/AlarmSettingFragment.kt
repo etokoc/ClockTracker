@@ -50,7 +50,7 @@ class AlarmSettingFragment : BaseFragment() {
 
         //Hatalı yazış
         val database = ClockDatabase(requireContext())
-        val repository = ClockRepository(database!!)
+        val repository = ClockRepository(database)
         val factory = AlarmSettingsViewModelFactory(repository)
 
         viewModel = ViewModelProvider(this, factory).get(AlarmSettingsViewModel::class.java)
@@ -80,7 +80,8 @@ class AlarmSettingFragment : BaseFragment() {
                     selectedTag ?: "Alarm"
                 )
             )
-            Navigation.findNavController(it).navigate(R.id.action_alarmSettingFragment_to_alarmFragment)
+            Navigation.findNavController(requireView())
+                .navigate(R.id.action_alarmSettingFragment_to_alarmFragment)
         }
 
         syncTimePicker()
@@ -100,17 +101,20 @@ class AlarmSettingFragment : BaseFragment() {
                 againDialog.apply {
                     rbOnceDay.setOnClickListener {
                         selectedDate = dayController.selectDay(DayStatusEnum.ONEDAY, null)
+                        binding.tvAgainDayDescription.text = "Birkez"
+                        cancel()
                     }
 
                     rbEveryDay.setOnClickListener {
                         selectedDate = dayController.selectDay(DayStatusEnum.EVERYDAY, null)
                         context.showToastShort(Calendar.DATE.toString())
+                        binding.tvAgainDayDescription.text = "Her gün"
                         cancel()
                     }
 
                     rbWeekDay.setOnClickListener {
                         selectedDate = dayController.selectDay(DayStatusEnum.WEEKDAY, null)
-                        context.showToastShort("Haftaiçi")
+                        binding.tvAgainDayDescription.text = "Hafta içi"
                         cancel()
                     }
 
@@ -129,6 +133,7 @@ class AlarmSettingFragment : BaseFragment() {
                                 val getSelection = ViewListController.getSelection(linearLayout)
                                 selectedDate =
                                     dayController.selectDay(DayStatusEnum.SPECIALDAY, getSelection)
+                                binding.tvAgainDayDescription.text = "Özel"
                                 cancel()
                             }
                         }

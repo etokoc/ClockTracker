@@ -29,7 +29,6 @@ class ClockAdapter(
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val currentItems = items[position]
-        val str = DayController().getMostDay(currentItems.date)
         holder.itemView.apply {
             tvAlarmTime.text = currentItems.time
             tvAlarmAgain.text = DayController().getDayString(currentItems.date)

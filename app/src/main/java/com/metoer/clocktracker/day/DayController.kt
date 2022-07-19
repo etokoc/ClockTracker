@@ -4,6 +4,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import com.metoer.clocktracker.model.ClockModel
 import com.metoer.clocktracker.other.convertToInt
+import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.util.*
 
@@ -51,6 +52,9 @@ class DayController {
             days == "0000011" -> {
                 selectDaysString = "Hafta sonu"
             }
+            counDay(days) == 1 -> {
+                selectDaysString = "Bir kez"
+            }
             else -> {
                 days.forEachIndexed { index, c ->
                     if (c == '1') {
@@ -62,53 +66,78 @@ class DayController {
         return selectDaysString
     }
 
+    private fun counDay(day: String): Int {
+        var count = 0
+        for (item in day) {
+            if (item == '1') {
+                count++
+            }
+        }
+        return count
+    }
+
     @RequiresApi(Build.VERSION_CODES.O)
     fun remaining(date: String, intDate: String): String {
-        val hour = date.substring(0, date.indexOf(':')).toInt()
-        val minute = date.substring(date.indexOf(':') + 1, date.length).toInt()
+        val alarmTime=alarmTime(date)
+        val hour=alarmTime.hour
+        val minute=alarmTime.minute
         var dt = Date()
         val c = Calendar.getInstance()
         c.time = dt
-        c.add(Calendar.DATE, getMostDay(intDate).toInt())
+        c.add(Calendar.DATE, getMostDay(intDate,date).toInt())
         dt = c.time
         dt.hours = hour
         dt.minutes = minute
         val secondTime = dt
-
         val millis = secondTime.time - System.currentTimeMillis()
         val hours: Long = millis / (1000 * 60 * 60)
         val mins: Long = millis / (1000 * 60) % 60
         return "$hours saat $mins dakika kaldı."
     }
 
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun getToday(): ClockModel {
-        val today = LocalDateTime.now()
-        return ClockModel(today.hour, today.minute)
-    }
-
-    fun getMostDay(days: String): String {
+    fun getMostDay(days: String,date:String): String {
         val inDay = Calendar.getInstance().time.day
         var startDay = 0
-        var endDate = 0
+        var nextDate = 0
+        val format = SimpleDateFormat("hh:mm")
+        val alarmTime: Date =
+            format.parse("${alarmTime(date).hour}:${alarmTime(date).minute}") as Date
+        val currentTime: Date = format.parse("${getToday().hour}:${getToday().minute}") as Date
+        val mills = alarmTime.time - currentTime.time
         days.forEachIndexed { index, c ->
             if (inDay - 1 == index) {
                 startDay = index
                 for (item in index until days.length) {
-                    if (days[item] == '1') {
-                        endDate = item
+                    if (mills > 0 && days[item] == '1') {
+                        nextDate = item
+                        break
+                    } else if (mills < 0 && days[item] == '1') {
+                        nextDate = item + 1
                         break
                     }
                 }
             }
         }
 
-        var sonuc = endDate - startDay
+        var sonuc = nextDate - startDay
         if (sonuc < 0) {
             sonuc += 7
         }
-
         return sonuc.toString()
     }
+
+    fun alarmTime(date: String): ClockModel {
+        val hour = date.substring(0, date.indexOf(':')).toInt()
+        val minute = date.substring(date.indexOf(':') + 1, date.length).toInt()
+        return ClockModel(hour, minute)
+    }
+
+    fun getToday(): ClockModel {
+        val today = LocalDateTime.now()
+        return ClockModel(today.hour, today.minute)
+    }
+
+    /*fun timeIsBackNow() {
+
+    }*/
 }
