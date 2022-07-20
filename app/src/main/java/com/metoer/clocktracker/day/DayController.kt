@@ -93,7 +93,7 @@ class DayController {
         val days: Long = millis / (1000 * 60 * 60 * 24)
         val hours: Long = millis / (1000 * 60 * 60) % 24
         val mins: Long = millis / (1000 * 60) % 60
-        return "$days Gün $hours saat $mins dakika kaldı."
+        return whenAlarmMessage(days, hours, mins)
     }
 
     fun getMostDay(days: String, date: String): String {
@@ -116,8 +116,7 @@ class DayController {
                         nextDate = item
                         break
 
-                    }
-                    else if (inDay == item && mills < 0 && days[item] == '1') {
+                    } else if (inDay == item && mills < 0 && days[item] == '1') {
                         nextDate = item
                         break
                     }
@@ -142,5 +141,22 @@ class DayController {
         val today = LocalDateTime.now()
         return ClockModel(today.hour, today.minute)
     }
+
+    private fun whenAlarmMessage(days: Long, hours: Long, mins: Long): String {
+        var message = ""
+
+        if (days != 0L) {
+            message += "$days gün "
+        }
+        if (hours != 0L) {
+            message += "$hours saat "
+        }
+        if (mins != 0L) {
+            message += "$mins dakika "
+        }
+
+        return "Alarm " + message + "sonra çalacak"
+    }
+
 
 }

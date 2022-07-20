@@ -12,10 +12,12 @@ import com.metoer.clocktracker.day.DayController
 import com.metoer.clocktracker.other.invs
 import com.metoer.clocktracker.other.show
 import com.metoer.clocktracker.other.textColors
+import com.metoer.clocktracker.ui.viewmodel.AlarmViewModel
 import kotlinx.android.synthetic.main.item_alarm_list.view.*
 
 class ClockAdapter(
-    var items: List<ClockItem>
+    var items: List<ClockItem>,
+    private val viewmodel: AlarmViewModel
 ) : RecyclerView.Adapter<ClockAdapter.ListViewHolder>() {
 
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
@@ -30,31 +32,44 @@ class ClockAdapter(
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val currentItems = items[position]
         holder.itemView.apply {
-            tvAlarmTime.text = currentItems.time
-            tvAlarmAgain.text = DayController().getDayString(currentItems.date)
-            tvAlarmTag.text = currentItems.tag
-            tvAlarmDescription.invs()
-            tvAlarmDescription.text =
-                DayController().remaining(currentItems.time, currentItems.date)
+            if (currentItems.enableAlarm == true) {
+                setSwitchStatus(true, currentItems, this)
+            }
+            switchAlarm.isChecked = currentItems.enableAlarm
             switchAlarm.setOnCheckedChangeListener { compoundButton, isChecked ->
-                if (isChecked) {
-                    tvAlarmTime.textColors(R.color.black)
-                    tvAlarmAgain.textColors(R.color.alarmTextColorSelected)
-                    tvAlarmDescription.textColors(R.color.alarmTextColorSelected)
-                    tvAlarmTag.textColors(R.color.alarmTextColorSelected)
-                    tvAlarmDescription.show()
-                } else {
-                    tvAlarmTime.textColors(R.color.alarmTextColorUnSelected)
-                    tvAlarmAgain.textColors(R.color.alarmTextColorUnSelected)
-                    tvAlarmDescription.textColors(R.color.alarmTextColorUnSelected)
-                    tvAlarmTag.textColors(R.color.alarmTextColorUnSelected)
-                    tvAlarmDescription.invs()
-                }
+                viewmodel.updateAdd(setSwitchStatus(isChecked, currentItems, this))
             }
         }
     }
 
     override fun getItemCount(): Int {
         return items.size
+    }
+
+    fun setSwitchStatus(isChecked: Boolean, currentItems: ClockItem, view: View): ClockItem {
+        view.apply {
+            tvAlarmTime.text = currentItems.time
+            tvAlarmAgain.text = DayController().getDayString(currentItems.date)
+            tvAlarmTag.text = currentItems.tag
+            tvAlarmDescription.invs()
+            tvAlarmDescription.text =
+                DayController().remaining(currentItems.time, currentItems.date)
+            if (isChecked) {
+                currentItems.enableAlarm = true
+                tvAlarmTime.textColors(R.color.black)
+                tvAlarmAgain.textColors(R.color.alarmTextColorSelected)
+                tvAlarmDescription.textColors(R.color.alarmTextColorSelected)
+                tvAlarmTag.textColors(R.color.alarmTextColorSelected)
+                tvAlarmDescription.show()
+            } else {
+                currentItems.enableAlarm = false
+                tvAlarmTime.textColors(R.color.alarmTextColorUnSelected)
+                tvAlarmAgain.textColors(R.color.alarmTextColorUnSelected)
+                tvAlarmDescription.textColors(R.color.alarmTextColorUnSelected)
+                tvAlarmTag.textColors(R.color.alarmTextColorUnSelected)
+                tvAlarmDescription.invs()
+            }
+        }
+        return currentItems
     }
 }

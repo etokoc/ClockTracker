@@ -77,7 +77,8 @@ class AlarmSettingFragment : BaseFragment() {
                     selectedTime ?: "09:00",
                     selectedDate ?: "0000000",
                     "Mehter MARŞI",
-                    selectedTag ?: "Alarm"
+                    selectedTag ?: "Alarm",
+                    true
                 )
             )
             Navigation.findNavController(requireView())

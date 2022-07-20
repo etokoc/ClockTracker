@@ -13,10 +13,13 @@ data class ClockItem(
     @ColumnInfo(name = "ring_sound")
     var ringSound: String,
     @ColumnInfo(name = "tag")
-    var tag: String
+    var tag: String,
+    @ColumnInfo(name = "enable")
+    var enableAlarm: Boolean
 ) {
     @PrimaryKey(autoGenerate = true)
     var ID: Int? = null
 }
+
 
 // Günleri, zilsesi, titret , etiket

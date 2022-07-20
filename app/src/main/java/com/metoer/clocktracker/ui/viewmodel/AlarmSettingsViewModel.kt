@@ -2,7 +2,6 @@ package com.metoer.clocktracker.ui.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.metoer.clocktracker.data.db.ClockDatabase
 import com.metoer.clocktracker.data.db.ClockItem
 import com.metoer.clocktracker.data.repositories.ClockRepository
 import io.reactivex.android.schedulers.AndroidSchedulers

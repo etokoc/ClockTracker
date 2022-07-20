@@ -48,7 +48,7 @@ class AlarmFragment : BaseFragment(), KodeinAware {
             binding.rvAlarmList.layoutManager = LinearLayoutManager(context)
             personsList.apply {
                 observe(viewLifecycleOwner, Observer {
-                    val adapter = ClockAdapter(this.value!!)
+                    val adapter = ClockAdapter(this.value!!,viewmodel)
                     binding.rvAlarmList.adapter = adapter
 
                 })

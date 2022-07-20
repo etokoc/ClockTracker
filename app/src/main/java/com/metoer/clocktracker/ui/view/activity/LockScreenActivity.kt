@@ -1,7 +1,6 @@
 package com.metoer.clocktracker.ui.view.activity
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import com.metoer.clocktracker.R
 import com.metoer.clocktracker.base.BaseActivity
 import com.metoer.clocktracker.other.turnScreenOnAndKeyguardOff

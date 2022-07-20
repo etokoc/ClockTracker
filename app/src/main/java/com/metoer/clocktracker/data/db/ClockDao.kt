@@ -1,6 +1,5 @@
 package com.metoer.clockacker.data.db
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.metoer.clocktracker.data.db.ClockItem
 import io.reactivex.Completable
