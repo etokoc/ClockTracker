@@ -18,7 +18,7 @@ class DayController {
     fun selectDay(dayEnum: DayStatusEnum, specialDays: ArrayList<Boolean>?): String {
         selectedDay = when (dayEnum) {
             DayStatusEnum.ONEDAY -> {
-                "2"
+                booleanConvertToString(specialDays!!, '2')
             }
             DayStatusEnum.WEEKDAY -> {
                 "1111100"
@@ -33,10 +33,17 @@ class DayController {
         return selectedDay
     }
 
-    private fun booleanConvertToString(arrayList: ArrayList<Boolean>): String {
+    private fun booleanConvertToString(
+        arrayList: ArrayList<Boolean>,
+        itemType: Char = '1'
+    ): String {
+        var item = 0
         var string = ""
         arrayList.forEachIndexed { index, b ->
-            string += b.convertToInt().toString()
+            item = b.convertToInt()
+            if (item != 0)
+                item = itemType.toString().toInt()
+            string += item
         }
         return string
     }
@@ -53,7 +60,7 @@ class DayController {
             days == "0000011" -> {
                 selectDaysString = "Hafta sonu"
             }
-            days.contains("2") -> {
+            days.contains('2') -> {
                 selectDaysString = "Bir kez"
             }
             else -> {
@@ -67,15 +74,7 @@ class DayController {
         return selectDaysString
     }
 
-    private fun counDay(day: String): Int {
-        var count = 0
-        for (item in day) {
-            if (item == '1') {
-                count++
-            }
-        }
-        return count
-    }
+
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun remaining(date: String, intDate: String): String {
