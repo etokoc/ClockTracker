@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:clickable="true"
+        android:contentDescription="@string/add_fab"
         android:focusable="true"
         android:src="@drawable/ic_add"
         app:backgroundTint="@color/white"
@@ -20,6 +21,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:tint="@color/appBlue" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabDeleteAlarmItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/white"
+        android:visibility="gone"
+        app:elevation="0dp"
+        android:src="@drawable/ic_delete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="@string/delete_fab" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvAlarmList"

@@ -50,6 +50,20 @@ class AlarmViewModel(
             }
     }
 
+    fun deleteAlarm(clockItem: ClockItem){
+        repository.delete(clockItem)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                //Refresh page data
+                getAllAlarmData()
+            },{
+
+            }).let {
+                compositeDisposable.add(it)
+            }
+    }
+
     override fun onCleared() {
         compositeDisposable.dispose()
         compositeDisposable.clear()

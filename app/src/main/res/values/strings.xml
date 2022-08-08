@@ -32,4 +32,6 @@
     <string name="defaul_time">09:00</string>
     <string name="ayirici">|</string>
     <string name="default_time_description">Alarm 9 saat 00 dakika sonra çalacaktır</string>
+    <string name="add_fab">Add</string>
+    <string name="delete_fab">delete</string>
 </resources>

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
@@ -29,6 +30,7 @@ class AlarmFragment : BaseFragment(), KodeinAware {
     private var clicked = false
 
     private lateinit var viewmodel: AlarmViewModel
+    private lateinit var adapter: ClockAdapter
 
     private var _binding: FragmentAlarmBinding? = null
     private val binding
@@ -48,7 +50,9 @@ class AlarmFragment : BaseFragment(), KodeinAware {
             binding.rvAlarmList.layoutManager = LinearLayoutManager(context)
             personsList.apply {
                 observe(viewLifecycleOwner, Observer {
-                    val adapter = ClockAdapter(this.value!!,viewmodel)
+                    adapter = ClockAdapter(this.value!!, viewmodel) { show, show2 ->
+                        showFabDelete(show,show2)
+                    }
                     binding.rvAlarmList.adapter = adapter
 
                 })
@@ -63,9 +67,19 @@ class AlarmFragment : BaseFragment(), KodeinAware {
                     .navigate(R.id.action_alarmFragment_to_alarmSettingFragment)
             }
 
+            fabDeleteAlarmItem.setOnClickListener {
+                adapter.deleteSelectItem()
+                showFabDelete(false,true)
+                //fabTimePickerDialog.show()
+            }
         }
 
         return binding.root
+    }
+
+    fun showFabDelete(show: Boolean, show2: Boolean) {
+        binding.fabDeleteAlarmItem.isVisible = show
+        binding.fabTimePickerDialog.isVisible = show2
     }
 
     override fun onDestroyView() {
