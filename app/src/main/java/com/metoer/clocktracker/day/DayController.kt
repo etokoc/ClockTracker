@@ -18,7 +18,7 @@ class DayController {
     fun selectDay(dayEnum: DayStatusEnum, specialDays: ArrayList<Boolean>?): String {
         selectedDay = when (dayEnum) {
             DayStatusEnum.ONEDAY -> {
-                booleanConvertToString(specialDays!!, '2')
+                "2"
             }
             DayStatusEnum.WEEKDAY -> {
                 "1111100"
@@ -33,17 +33,10 @@ class DayController {
         return selectedDay
     }
 
-    private fun booleanConvertToString(
-        arrayList: ArrayList<Boolean>,
-        itemType: Char = '1'
-    ): String {
-        var item = 0
+    private fun booleanConvertToString(arrayList: ArrayList<Boolean>): String {
         var string = ""
         arrayList.forEachIndexed { index, b ->
-            item = b.convertToInt()
-            if (item != 0)
-                item = itemType.toString().toInt()
-            string += item
+            string += b.convertToInt().toString()
         }
         return string
     }
@@ -60,7 +53,7 @@ class DayController {
             days == "0000011" -> {
                 selectDaysString = "Hafta sonu"
             }
-            days.contains('2') -> {
+            days.contains("2") -> {
                 selectDaysString = "Bir kez"
             }
             else -> {
@@ -74,6 +67,15 @@ class DayController {
         return selectDaysString
     }
 
+    private fun counDay(day: String): Int {
+        var count = 0
+        for (item in day) {
+            if (item == '1') {
+                count++
+            }
+        }
+        return count
+    }
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun remaining(date: String, intDate: String): String {
@@ -95,29 +97,51 @@ class DayController {
         return whenAlarmMessage(days, hours, mins)
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun getMostDay(days: String, date: String): String {
         val inDay = (Calendar.getInstance().time.day) - 1
         var startDay = 0
         var nextDate = 0
+        var firstDay = 0
         val format = SimpleDateFormat("hh:mm")
         val alarmTime: Date =
             format.parse("${alarmTime(date).hour}:${alarmTime(date).minute}") as Date
         val currentTime: Date = format.parse("${getToday().hour}:${getToday().minute}") as Date
         val mills = alarmTime.time - currentTime.time
         days.forEachIndexed { index, c ->
-            if (inDay == index) {
+            if (inDay == index) { //1001001
                 startDay = index
-                for (item in days.indices) {
-                    if (inDay == item && mills > 0 && days[item] == '2') {
-                        Log.i("MYTAG", "bugün kurulu: $item. cı alarm")
+                for (item in 0 until days.length) {
+                    if (inDay <= item && mills > 0 && days[item] == '1') {
+                        nextDate = item
+                        Log.i(
+                            "xxxDate",
+                            "Next Date = " + nextDate + " Start Date = " + startDay + " İnday = " + inDay + " İndex = " + index + " Days = " + days[item] + " Item= " + item
+                        )
+                        break
+                    } else if (inDay < item && mills < 0 && days[item] == '1') {
+                        nextDate = item
+                        Log.i(
+                            "xxxDate2",
+                            "Next Date = " + nextDate + " Start Date = " + startDay + " İnday = " + inDay + " İndex = " + index + " Days = " + days[item] + " Item= " + item
+                        )
+                        break
+                    }
+                    else {
+                        for (item in 0 until days.length) {
+                            if (days[item] == '1') {
+                                firstDay = item
+                                break
+                            }
+                        }
                     }
                 }
             }
         }
 
+
         var sonuc = nextDate - startDay
         if (sonuc < 0) {
+            sonuc = firstDay - startDay
             sonuc += 7
         }
         return sonuc.toString()
@@ -129,7 +153,6 @@ class DayController {
         return ClockModel(hour, minute)
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun getToday(): ClockModel {
         val today = LocalDateTime.now()
         return ClockModel(today.hour, today.minute)

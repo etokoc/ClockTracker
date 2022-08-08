@@ -84,12 +84,11 @@ class ClockAdapter(
     fun deleteSelectItem() {
         if (itemSelectedList.isNotEmpty()) {
             isEnable = false
-            itemSelectedList.clear()
+            itemSelectedList
             //viewmodel.deleteAlarm(currentItems)
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun setSwitchStatus(isChecked: Boolean, currentItems: ClockItem, view: View): ClockItem {
         view.apply {
             tvAlarmTime.text = currentItems.time
