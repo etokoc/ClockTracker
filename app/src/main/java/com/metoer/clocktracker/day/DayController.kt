@@ -1,6 +1,7 @@
 package com.metoer.clocktracker.day
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import com.metoer.clocktracker.model.ClockModel
 import com.metoer.clocktracker.other.convertToInt
@@ -17,7 +18,7 @@ class DayController {
     fun selectDay(dayEnum: DayStatusEnum, specialDays: ArrayList<Boolean>?): String {
         selectedDay = when (dayEnum) {
             DayStatusEnum.ONEDAY -> {
-                "1"
+                booleanConvertToString(specialDays!!, '2')
             }
             DayStatusEnum.WEEKDAY -> {
                 "1111100"
@@ -32,10 +33,17 @@ class DayController {
         return selectedDay
     }
 
-    private fun booleanConvertToString(arrayList: ArrayList<Boolean>): String {
+    private fun booleanConvertToString(
+        arrayList: ArrayList<Boolean>,
+        itemType: Char = '1'
+    ): String {
+        var item = 0
         var string = ""
         arrayList.forEachIndexed { index, b ->
-            string += b.convertToInt().toString()
+            item = b.convertToInt()
+            if (item != 0)
+                item = itemType.toString().toInt()
+            string += item
         }
         return string
     }
@@ -52,7 +60,7 @@ class DayController {
             days == "0000011" -> {
                 selectDaysString = "Hafta sonu"
             }
-            counDay(days) == 1 -> {
+            days.contains('2') -> {
                 selectDaysString = "Bir kez"
             }
             else -> {
@@ -66,15 +74,6 @@ class DayController {
         return selectDaysString
     }
 
-    private fun counDay(day: String): Int {
-        var count = 0
-        for (item in day) {
-            if (item == '1') {
-                count++
-            }
-        }
-        return count
-    }
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun remaining(date: String, intDate: String): String {
@@ -96,8 +95,9 @@ class DayController {
         return whenAlarmMessage(days, hours, mins)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun getMostDay(days: String, date: String): String {
-        val inDay = Calendar.getInstance().time.day
+        val inDay = (Calendar.getInstance().time.day) - 1
         var startDay = 0
         var nextDate = 0
         val format = SimpleDateFormat("hh:mm")
@@ -106,19 +106,11 @@ class DayController {
         val currentTime: Date = format.parse("${getToday().hour}:${getToday().minute}") as Date
         val mills = alarmTime.time - currentTime.time
         days.forEachIndexed { index, c ->
-            if (inDay - 1 == index) {
+            if (inDay == index) {
                 startDay = index
-                for (item in index until days.length) {
-                    if (mills > 0 && days[item] == '1') {
-                        nextDate = item
-                        break
-                    } else if (inDay < item && days[item] == '1') {
-                        nextDate = item
-                        break
-
-                    } else if (inDay == item && mills < 0 && days[item] == '1') {
-                        nextDate = item
-                        break
+                for (item in days.indices) {
+                    if (inDay == item && mills > 0 && days[item] == '2') {
+                        Log.i("MYTAG", "bugün kurulu: $item. cı alarm")
                     }
                 }
             }
@@ -137,6 +129,7 @@ class DayController {
         return ClockModel(hour, minute)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun getToday(): ClockModel {
         val today = LocalDateTime.now()
         return ClockModel(today.hour, today.minute)

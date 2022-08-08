@@ -46,6 +46,7 @@ class ClockAdapter(
         return items.size
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun setSwitchStatus(isChecked: Boolean, currentItems: ClockItem, view: View): ClockItem {
         view.apply {
             tvAlarmTime.text = currentItems.time
