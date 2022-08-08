@@ -113,17 +113,9 @@ class DayController {
                 for (item in 0 until days.length) {
                     if (inDay <= item && mills > 0 && days[item] == '1') {
                         nextDate = item
-                        Log.i(
-                            "xxxDate",
-                            "Next Date = " + nextDate + " Start Date = " + startDay + " İnday = " + inDay + " İndex = " + index + " Days = " + days[item] + " Item= " + item
-                        )
                         break
                     } else if (inDay < item && mills < 0 && days[item] == '1') {
                         nextDate = item
-                        Log.i(
-                            "xxxDate2",
-                            "Next Date = " + nextDate + " Start Date = " + startDay + " İnday = " + inDay + " İndex = " + index + " Days = " + days[item] + " Item= " + item
-                        )
                         break
                     }
                     else {

@@ -1,5 +1,6 @@
 package com.metoer.clocktracker.other.adapter
 
+import android.content.Context
 import android.os.Build
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,23 +8,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.metoer.clocktracker.R
 import com.metoer.clocktracker.data.db.ClockItem
 import com.metoer.clocktracker.day.DayController
 import com.metoer.clocktracker.other.*
 import com.metoer.clocktracker.ui.viewmodel.AlarmViewModel
+import kotlinx.android.synthetic.main.fragment_alarm.view.*
 import kotlinx.android.synthetic.main.item_alarm_list.view.*
 
 class ClockAdapter(
     var items: List<ClockItem>,
     private val viewmodel: AlarmViewModel,
-    private val showFabDelete: (Boolean,Boolean) -> Unit,
+    val deleteFloatButton: FloatingActionButton,
+    val addFloatButton: FloatingActionButton
 ) : RecyclerView.Adapter<ClockAdapter.ListViewHolder>() {
-
-    private var isEnable = false
-    private val itemSelectedList = mutableListOf<Int>()
-
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+
+    val selectedItemForDelete = ArrayList<ClockItem>()
 
     override fun getItemCount(): Int {
         return items.size
@@ -34,6 +36,8 @@ class ClockAdapter(
             .inflate(R.layout.item_alarm_list, parent, false)
         return ListViewHolder(view)
     }
+
+    private var shouldShowCheckBoxes = false
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
@@ -48,46 +52,39 @@ class ClockAdapter(
             switchAlarm.setOnCheckedChangeListener { compoundButton, isChecked ->
                 viewmodel.updateAdd(setSwitchStatus(isChecked, currentItems, this))
             }
+            switchAlarm.visibility = if (shouldShowCheckBoxes) View.INVISIBLE else View.VISIBLE
+            alarmDeleteCheckBox.visibility =
+                if (shouldShowCheckBoxes) View.VISIBLE else View.INVISIBLE
             //long click
             itemAlarmConstraint.setOnLongClickListener {
-                selectItem(holder, currentItems, position)
+                shouldShowCheckBoxes = true
+                notifyDataSetChanged()
+                deleteFloatButton.show()
+                addFloatButton.hide()
+                alarmDeleteCheckBox.isChecked = true
+                selectedItemForDelete.add(currentItems)
                 true
             }
             itemAlarmConstraint.setOnClickListener {
-                if (itemSelectedList.contains(position)) {
-                    //itemSelectedList.removeAt(position)
-                    switchAlarm.show()
-                    alarmDeleteCheckBox.hide()
-                    currentItems.enableAlarm = false
-                    if (itemSelectedList.isEmpty()) {
-                        showFabDelete(false,true)
-                        isEnable = false
-                    }
-                } else if (isEnable) {
-                    selectItem(holder, currentItems, position)
+                alarmDeleteCheckBox.isChecked = if (alarmDeleteCheckBox.isChecked) {
+                    selectedItemForDelete.remove(currentItems)
+                    false
+                } else {
+                    selectedItemForDelete.add(currentItems)
+                    true
+                }
+            }
+            deleteFloatButton.setOnClickListener {
+                selectedItemForDelete.forEach {
+                    viewmodel.deleteAlarm(it)
+                    addFloatButton.show()
+                    deleteFloatButton.hide()
+                    notifyDataSetChanged()
                 }
             }
         }
     }
 
-    fun selectItem(holder: ListViewHolder, item: ClockItem, position: Int) {
-        isEnable = true
-        item.enableAlarm = true
-        showFabDelete(true,false)
-        itemSelectedList.add(position)
-        holder.itemView.apply {
-            switchAlarm.hide()
-            alarmDeleteCheckBox.show()
-        }
-    }
-
-    fun deleteSelectItem() {
-        if (itemSelectedList.isNotEmpty()) {
-            isEnable = false
-            itemSelectedList
-            //viewmodel.deleteAlarm(currentItems)
-        }
-    }
 
     fun setSwitchStatus(isChecked: Boolean, currentItems: ClockItem, view: View): ClockItem {
         view.apply {
