@@ -75,7 +75,6 @@ class DayController {
     }
 
 
-
     @RequiresApi(Build.VERSION_CODES.O)
     fun remaining(date: String, intDate: String): String {
         val alarmTime = alarmTime(date)
@@ -116,8 +115,15 @@ class DayController {
                     } else if (inDay < item && mills < 0 && days[item] == '1') {
                         nextDate = item
                         break
-                    }
-                    else {
+                    } else if (days[item] == '2') {
+                        if (mills > 0) {
+                            nextDate = item
+                            Log.i("dayscontroller", "item= "+item+" nextDate= "+nextDate+" starddate= "+startDay)
+                        } else {
+                            Log.i("dayscontroller", "Allah nelanı versin")
+                            nextDate = item+1
+                        }
+                    } else {
                         for (item in 0 until days.length) {
                             if (days[item] == '1') {
                                 firstDay = item

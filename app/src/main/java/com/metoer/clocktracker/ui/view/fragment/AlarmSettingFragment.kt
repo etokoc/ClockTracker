@@ -101,10 +101,10 @@ class AlarmSettingFragment : BaseFragment() {
                 )
                 againDialog.apply {
                     rbOnceDay.setOnClickListener {
-                        val inDay = Calendar.getInstance().time.day
+                        val inDay = Calendar.getInstance().time.day-1
                         val days =
                             arrayListOf(false, false, false, false, false, false, false)
-                        days[inDay+1] = true
+                        days[inDay] = true
                         selectedDate = dayController.selectDay(DayStatusEnum.ONEDAY,days)
                         binding.tvAgainDayDescription.text = "Birkez"
                         cancel()

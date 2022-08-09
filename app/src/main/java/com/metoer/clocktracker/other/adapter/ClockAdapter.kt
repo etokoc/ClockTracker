@@ -1,8 +1,6 @@
 package com.metoer.clocktracker.other.adapter
 
-import android.content.Context
 import android.os.Build
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +12,6 @@ import com.metoer.clocktracker.data.db.ClockItem
 import com.metoer.clocktracker.day.DayController
 import com.metoer.clocktracker.other.*
 import com.metoer.clocktracker.ui.viewmodel.AlarmViewModel
-import kotlinx.android.synthetic.main.fragment_alarm.view.*
 import kotlinx.android.synthetic.main.item_alarm_list.view.*
 
 class ClockAdapter(
