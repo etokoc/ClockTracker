@@ -3,9 +3,11 @@ package com.metoer.clocktracker.ui.view.fragment
 import android.app.Dialog
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.metoer.clocktracker.R
@@ -18,6 +20,7 @@ import com.metoer.clocktracker.day.DayController
 import com.metoer.clocktracker.day.DayStatusEnum
 import com.metoer.clocktracker.other.DialogCreater
 import com.metoer.clocktracker.other.ViewListController
+import com.metoer.clocktracker.other.alarm.AlarmService
 import com.metoer.clocktracker.other.showToastLong
 import com.metoer.clocktracker.other.showToastShort
 import com.metoer.clocktracker.ui.view.activity.ClockActivity
@@ -47,7 +50,10 @@ class AlarmSettingFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAlarmSettingBinding.inflate(inflater, container, false)
-
+        if (savedInstanceState != null) {
+            Log.i("INSTANCE", savedInstanceState?.get("tag").toString())
+            binding.tvTagDescription.text = savedInstanceState["tag"].toString()
+        }
         //Hatalı yazış
         val database = ClockDatabase(requireContext())
         val repository = ClockRepository(database)
@@ -59,6 +65,11 @@ class AlarmSettingFragment : BaseFragment() {
         binding.apply {
             pickertime.setIs24HourView(true)
         }
+
+
+        binding.tvTagDescription.text = viewModel!!._tagLiveData.value ?: ""
+
+
         return binding.root
     }
 
@@ -66,6 +77,13 @@ class AlarmSettingFragment : BaseFragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBundle("tag", bundleOf(Pair("tag", selectedTag.toString())))
+        Log.i("INSTANCE", "instance girdi")
+    }
+
 
     var dayController = DayController()
     override fun onResume() {
@@ -85,6 +103,7 @@ class AlarmSettingFragment : BaseFragment() {
                 .navigate(R.id.action_alarmSettingFragment_to_alarmFragment)
         }
 
+
         syncTimePicker()
         binding.apply {
             //Zil Sesi Satırı
@@ -101,11 +120,11 @@ class AlarmSettingFragment : BaseFragment() {
                 )
                 againDialog.apply {
                     rbOnceDay.setOnClickListener {
-                        val inDay = Calendar.getInstance().time.day-1
+                        val inDay = Calendar.getInstance().time.day - 1
                         val days =
                             arrayListOf(false, false, false, false, false, false, false)
                         days[inDay] = true
-                        selectedDate = dayController.selectDay(DayStatusEnum.ONEDAY,days)
+                        selectedDate = dayController.selectDay(DayStatusEnum.ONEDAY, days)
                         binding.tvAgainDayDescription.text = "Birkez"
                         cancel()
                     }
@@ -155,6 +174,7 @@ class AlarmSettingFragment : BaseFragment() {
                 addTagDialog.apply {
                     confirmButton.setOnClickListener {
                         selectedTag = tag_edittext.text.toString()
+                        viewModel!!._tagLiveData.value = selectedTag
                         binding.tvTagDescription.text = selectedTag
                         cancel()
                     }
@@ -179,14 +199,12 @@ class AlarmSettingFragment : BaseFragment() {
     }
 
     private fun getRingtone() {
-//        val intent = Intent()
+        val action = RingtoneFragmentDirections.actionRingtoneFragmentToAlarmSettingFragment("")
+        action.argTag = viewModel!!._tagLiveData.value.toString()
         Navigation.findNavController(requireView())
             .navigate(R.id.action_alarmSettingFragment_to_ringtoneFragment)
-//        intent.setType("audio/*")
-//        intent.setAction(Intent.ACTION_GET_CONTENT)
-//        requireContext().startActivity(intent)
-//        val service = AlarmService(requireActivity().applicationContext, "")
-//        service.createAlarm(getTimeFromPicker())
+        val service = AlarmService(requireActivity().applicationContext, "")
+        service.createAlarm(getTimeFromPicker())
     }
 
 
