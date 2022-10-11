@@ -45,6 +45,8 @@ class AlarmFragment : BaseFragment(), KodeinAware {
 
         viewmodel = ViewModelProvider(this, factory).get(AlarmViewModel::class.java)
 
+        binding.apply {
+        }
         viewmodel.apply {
             binding.rvAlarmList.layoutManager = LinearLayoutManager(context)
             personsList.apply {

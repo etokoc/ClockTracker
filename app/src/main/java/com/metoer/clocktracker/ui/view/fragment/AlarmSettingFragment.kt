@@ -78,11 +78,11 @@ class AlarmSettingFragment : BaseFragment() {
         _binding = null
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
+    /*override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putBundle("tag", bundleOf(Pair("tag", selectedTag.toString())))
         Log.i("INSTANCE", "instance girdi")
-    }
+    }*/
 
 
     var dayController = DayController()
@@ -199,8 +199,8 @@ class AlarmSettingFragment : BaseFragment() {
     }
 
     private fun getRingtone() {
-        val action = RingtoneFragmentDirections.actionRingtoneFragmentToAlarmSettingFragment("")
-        action.argTag = viewModel!!._tagLiveData.value.toString()
+        val action = AlarmSettingFragmentDirections.actionAlarmSettingFragmentToRingtoneFragment("")
+        action.tagArgs = viewModel!!._tagLiveData.value.toString()
         Navigation.findNavController(requireView())
             .navigate(R.id.action_alarmSettingFragment_to_ringtoneFragment)
         val service = AlarmService(requireActivity().applicationContext, "")

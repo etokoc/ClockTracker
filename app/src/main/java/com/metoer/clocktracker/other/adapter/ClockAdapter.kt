@@ -53,7 +53,7 @@ class ClockAdapter(
             alarmDeleteCheckBox.visibility =
                 if (shouldShowCheckBoxes) View.VISIBLE else View.INVISIBLE
             //long click
-            itemAlarmConstraint.setOnLongClickListener {
+                itemAlarmConstraint.setOnLongClickListener {
                 shouldShowCheckBoxes = true
                 notifyDataSetChanged()
                 deleteFloatButton.show()

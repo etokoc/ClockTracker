@@ -54,5 +54,10 @@
         android:id="@+id/ringtoneFragment"
         android:name="com.metoer.clocktracker.ui.view.fragment.RingtoneFragment"
         android:label="fragment_ringtone"
-        tools:layout="@layout/fragment_ringtone" />
+        tools:layout="@layout/fragment_ringtone" >
+        <action
+            android:id="@+id/action_ringtoneFragment_to_alarmSettingFragment"
+            app:destination="@id/alarmSettingFragment" />
+        <argument android:name="tagArgs" />
+    </fragment>
 </navigation>
